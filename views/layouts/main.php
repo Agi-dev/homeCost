@@ -1,15 +1,15 @@
 <?php
-
 /* @var $this \yii\web\View */
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\assets\ActionAsset;
 use yii\helpers\Html;
-use yii\widgets\Breadcrumbs;
-
 AppAsset::register($this);
+ActionAsset::register($this);
+
+$this->beginPage()
 ?>
-<?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -38,10 +38,7 @@ AppAsset::register($this);
         </div><!-- /.container-fluid -->
     </nav>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+    <div class="container-fluid">
         <?= $content ?>
     </div>
 </div>

@@ -8,12 +8,20 @@
  * @license http://www.yiiframework.com/license/
  */
 
+use Serval\ServalFactory;
+use Serval\Technical\Container\Container;
+
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 
 require(__DIR__ . '/vendor/autoload.php');
 require(__DIR__ . '/vendor/yiisoft/yii2/Yii.php');
 
 $config = require(__DIR__ . '/config/console.php');
+
+// Init Serval
+Container::singleton()->loadFile(__DIR__ . '/config/container/services.php');
+ServalFactory::singleton()->setContainer(Container::singleton());
+include_once(__DIR__ . '/vendor/NumericWorkshop/Serval/src/Serval/functions.php');
 
 $application = new yii\console\Application($config);
 $exitCode = $application->run();

@@ -37,7 +37,15 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => false,
+            'rules' => [
+                'debug/<controller:\w+>/<action:\w+>' => 'debug/<controller>/<action>',
+                '<controller:\w+>/<action:\w+>/*' => '<module>/<controller>/<action>',
+            ],
+        ],
     ],
     'params' => $params,
 ];

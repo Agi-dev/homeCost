@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "416e69d049dc10f221647ae11db85093",
-    "content-hash": "ed08b0c2cf7cca0d348c03a607f0b55a",
+    "hash": "d21913de93c80fb5bf67ea60fba8270c",
+    "content-hash": "13c0833e21f5823e46c3b553e86ab445",
     "packages": [
         {
             "name": "NumericWorkshop/Serval",
@@ -13,7 +13,7 @@
             "source": {
                 "type": "git",
                 "url": "git@numeric-workshop.com:/home/git/bareRepos/09-LIBS/serval.git",
-                "reference": "f2bfa6f6eb6052ceb15f7b0f25f593a4f780782b"
+                "reference": "d3570be1c607061232cd188999b5c707f0898625"
             },
             "require": {
                 "cbschuld/browser.php": "dev-master",
@@ -42,7 +42,7 @@
                 }
             ],
             "description": "Numeric Workshop Service Framework",
-            "time": "2015-11-09 16:57:23"
+            "time": "2015-11-11 14:28:26"
         },
         {
             "name": "bower-asset/bootstrap",
@@ -448,6 +448,54 @@
                 "validation"
             ],
             "time": "2015-11-10 17:26:25"
+        },
+        {
+            "name": "kartik-v/bootstrap-fileinput",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
+                "reference": "cdf32abb5272d2dabd0d9ee566e2d818b0d1d4bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/cdf32abb5272d2dabd0d9ee566e2d818b0d1d4bf",
+                "reference": "cdf32abb5272d2dabd0d9ee566e2d818b0d1d4bf",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\plugins\\fileinput\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "An enhanced HTML 5 file input for Bootstrap 3.x with features for file preview for many file types, multiple selection, ajax uploads, and more.",
+            "homepage": "https://github.com/kartik-v/bootstrap-fileinput",
+            "keywords": [
+                "ajax",
+                "bootstrap",
+                "delete",
+                "file",
+                "image",
+                "input",
+                "jquery",
+                "multiple",
+                "preview",
+                "progress",
+                "upload"
+            ],
+            "time": "2015-11-05 03:46:29"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -1305,12 +1353,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6cc501c1adf86482fbb54fb2958e1c7685f57a61"
+                "reference": "6f9251d0910483fcbe22ee7a47ed604e43070770"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6cc501c1adf86482fbb54fb2958e1c7685f57a61",
-                "reference": "6cc501c1adf86482fbb54fb2958e1c7685f57a61",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6f9251d0910483fcbe22ee7a47ed604e43070770",
+                "reference": "6f9251d0910483fcbe22ee7a47ed604e43070770",
                 "shasum": ""
             },
             "require": {
@@ -1369,7 +1417,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-11-10 21:39:46"
+            "time": "2015-11-11 12:23:02"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2044,6 +2092,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "kartik-v/bootstrap-fileinput": 20,
         "numericworkshop/serval": 20
     },
     "prefer-stable": false,

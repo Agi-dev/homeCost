@@ -21,11 +21,9 @@ $services['parameters']['numberFormat']['locale'] = $locale;
 $services['parameters']['database'] = array_merge(
     $services['parameters']['database'],
     array(
-        'host'        => 'localhost',
-        'dbname'      => 'homecost',
+        'dsn' => 'mysql:host=localhost;dbname=homecost',
         'username'    => 'root',
-        'password'    => 'root',
-        'type'        => 'mysql',
+        'password'    => '',
     )
 );
 $services['parameters']['database']['queriesPath'] = array_merge(

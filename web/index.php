@@ -13,7 +13,7 @@ require(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 // Init Serval
 Container::singleton()->loadFile(__DIR__ . '/../config/container/services.php');
 ServalFactory::singleton()->setContainer(Container::singleton());
-include_once(__DIR__ . '/protected/vendor/NumericWorkshop/Serval/src/Serval/functions.php');
+include_once(__DIR__ . '/../vendor/NumericWorkshop/Serval/src/Serval/functions.php');
 
 $config = require(__DIR__ . '/../config/web.php');
 
