@@ -10,8 +10,12 @@
 
 namespace app\components;
 
+use Serval\Technical\String\StringInterface;
 use yii\web\Controller;
 use yii;
+use Serval\ServalFactory;
+use yii\web\Response;
+use yii\web\HttpException;
 
 /**
  * Class MyController
@@ -32,12 +36,12 @@ class MyController extends Controller
     /**
      * check is post request
      * @return bool
-     * @throws \HttpException
+     * @throws HttpException
      */
     public function checkIsPostRequest()
     {
         if (true === $this->isPostRequest()) return true;
-        throw new \HttpException('forbidden access');
+        throw new HttpException('forbidden access');
     }
     /**
      * check is Ajax Request
@@ -52,12 +56,12 @@ class MyController extends Controller
     /**
      * check is ajax request
      * @return bool
-     * @throws \HttpException
+     * @throws HttpException
      */
     public function checkIsAjaxRequest()
     {
         if (true === $this->isAjaxRequest()) return true;
-        throw new \HttpException('forbidden access');
+        throw new HttpException('forbidden access');
     }
 
     /**
@@ -95,7 +99,36 @@ class MyController extends Controller
      */
     public function renderJson($data)
     {
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        \Yii::$app->response->format = Response::FORMAT_JSON;
         return $data;
+    }
+
+    /**
+     * get service
+     *
+     * @param $name
+     *
+     * @return \Serval\Base\ServiceInterface
+     */
+    public function getService($name)
+    {
+        return ServalFactory::singleton()->get($name);
+    }
+
+    /**
+     * render action in function of current action and controller
+     *
+     * @param null $params
+     *
+     * @return string
+     */
+    public function renderAction($params = null)
+    {
+        /** @var StringInterface $stringService */
+        $stringService = $this->getService('string');
+        $controller = yii::$app->controller->id;
+        $action = yii::$app->controller->action->id;
+
+        return $this->render('/' . $controller . '/' . $stringService->fromCamelCase($action), $params);
     }
 }

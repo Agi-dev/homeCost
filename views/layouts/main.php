@@ -5,9 +5,16 @@
 use app\assets\AppAsset;
 use app\assets\ActionAsset;
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 AppAsset::register($this);
 ActionAsset::register($this);
 
+$currentUrl = yii::$app->controller->id . '/' . yii::$app->controller->action->id;
+$menu = [
+    'Process' => 'site/process',
+];
+$this->title = 'HomeCost';
 $this->beginPage()
 ?>
 <!DOCTYPE html>
@@ -33,8 +40,18 @@ $this->beginPage()
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">HomeCost</a>
+                <a class="navbar-brand" href="/">HomeCost</a>
             </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                <?php foreach($menu as $label => $url):?>
+                    <li class="<?php echo ($currentUrl === $url ? 'active':'' );?>">
+                        <a href="<?php echo Url::to($url);?>"><?php echo $label; //<span class="sr-only">(current)</span>?> </a></li>
+                <?php endforeach;?>
+                </ul>
+            </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
 

@@ -7,6 +7,7 @@ class m151111_134915_create_schema extends MyMigration
     public function up()
     {
         $this->executeScriptFile(__DIR__ .'/sql/m151111_134915_create_schema.sql');
+        $this->executeScriptFile(__DIR__ .'/sql/m151111_134915_category_data.sql');
     }
 
     public function down()

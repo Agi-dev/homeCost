@@ -1,6 +1,6 @@
 # phpstorm project files
 .idea
-
+*.bak
 # netbeans project files
 nbproject
 
@@ -14,6 +14,10 @@ Thumbs.db
 
 # composer vendor dir
 /vendor
+
+# uploads dir content
+/uploads/*
+!/uploads/.gitkeep
 
 # composer itself is not needed
 composer.phar

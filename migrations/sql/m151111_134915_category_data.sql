@@ -1,0 +1,9 @@
+INSERT INTO category (id, label, tag) VALUES (1, 'Alimentation', 'miam');
+INSERT INTO category (id, label, tag) VALUES (2, 'Voiture', 'car');
+INSERT INTO category (id, label, tag) VALUES (3, 'Elwen', 'elwen');
+INSERT INTO category (id, label, tag) VALUES (4, 'Médecine', 'bobo');
+INSERT INTO category (id, label, tag) VALUES (5, 'Abonnement', 'abt');
+INSERT INTO category (id, label, tag) VALUES (6, 'Impôts', 'impot');
+INSERT INTO category (id, label, tag) VALUES (7, 'Maison', 'house');
+INSERT INTO category (id, label, tag) VALUES (8, 'Loisirs', 'loisir');
+INSERT INTO category (id, label, tag) VALUES (9, 'Divers', 'divers');
