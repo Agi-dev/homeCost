@@ -1,0 +1,1 @@
+TRUNCATE `%{pm.table.name}`;
