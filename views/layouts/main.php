@@ -12,7 +12,7 @@ ActionAsset::register($this);
 
 $currentUrl = yii::$app->controller->id . '/' . yii::$app->controller->action->id;
 $menu = [
-    'Process' => 'site/process',
+    'Opération' => 'site/process',
 ];
 $this->title = 'HomeCost';
 $this->beginPage()
@@ -30,7 +30,7 @@ $this->beginPage()
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-    <nav class="navbar navbar-default navbar-collapse navbar-inverse">
+    <nav class="navbar navbar-default navbar-collapse navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">

@@ -44,6 +44,7 @@ $services['parameters']['phone'] = [
 $localBusinessServices = [
     'bank',
     'category',
+    'cost',
 ];
 foreach ($localBusinessServices as $service) {
     $services['services'][lcfirst($service)] = 'Service\\Business\\' . $service . '\\' . $service;

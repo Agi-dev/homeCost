@@ -65,4 +65,52 @@ class SiteController extends MyController
         $data = $bankService->listNew();
         return $this->renderAction(compact('data', 'dateService', 'listCateg'));
     }
+
+    public function actionIgnore()
+    {
+        $this->checkIsAjaxRequest();
+        $this->checkIsPostRequest();
+        $postedData = $this->getPostedData();
+
+        /** @var BankInterface $bankService */
+        $bankService = $this->getService('bank');
+        $bankService->ignoreById($postedData['id']);
+        return $this->renderJson(array('success' => true));
+    }
+
+    public function actionKeep()
+    {
+        $this->checkIsAjaxRequest();
+        $this->checkIsPostRequest();
+        $postedData = $this->getPostedData();
+
+        /** @var BankInterface $bankService */
+        $bankService = $this->getService('bank');
+        $bankService->keepById($postedData['id']);
+        return $this->renderJson(array('success' => true));
+    }
+
+    public function actionTag()
+    {
+        $this->checkIsAjaxRequest();
+        $this->checkIsPostRequest();
+        $postedData = $this->getPostedData();
+
+        /** @var BankInterface $bankService */
+        $bankService = $this->getService('bank');
+        $bankService->tagById($postedData['id'], $postedData['tagId']);
+        return $this->renderJson(array('success' => true));
+    }
+
+    public function actionUntag()
+    {
+        $this->checkIsAjaxRequest();
+        $this->checkIsPostRequest();
+        $postedData = $this->getPostedData();
+
+        /** @var BankInterface $bankService */
+        $bankService = $this->getService('bank');
+        $bankService->untagById($postedData['id']);
+        return $this->renderJson(array('success' => true));
+    }
 }

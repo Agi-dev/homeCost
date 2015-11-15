@@ -20,7 +20,8 @@ interface BankInterface extends ServiceTableInterface
      * STATUS
      */
     const STATUS_NEW = 0;
-    const STATUS_SORTED = 1;
+    const STATUS_IGNORED = 1;
+    const STATUS_SORTED = 2;
 
     /**
      * IMPORT COLUMN
@@ -54,4 +55,41 @@ interface BankInterface extends ServiceTableInterface
      * @return array
      */
     public function listNew();
+
+    /**
+     * ignore operation
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function ignoreById($id);
+
+    /**
+     * ignore operation
+     *
+     * @param $id
+     *
+     * @return $this
+     */
+    public function keepById($id);
+
+    /**
+     * tag operation
+     *
+     * @param $id
+     * @param $tagId
+     *
+     * @return $this
+     */
+    public function tagById($id, $tagId);
+
+    /**
+     * untag operation
+     *
+     * @param $id
+     *
+     * @return $this
+     */
+    public function untagById($id);
 }
