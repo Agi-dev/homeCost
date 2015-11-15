@@ -13,6 +13,7 @@ namespace Service\Business\Bank;
 use Serval\Base\Table\AbstractServiceTable;
 use Serval\Technical\Date\DateInterface;
 use Serval\Technical\Excel\ExcelInterface;
+use Serval\Technical\Filesystem\FilesystemInterface;
 use Service\Business\Category\CategoryInterface;
 use Service\Business\Cost\CostInterface;
 
@@ -23,6 +24,7 @@ use Service\Business\Cost\CostInterface;
  * @method DateInterface getDateService()
  * @method CategoryInterface getCategoryService()
  * @method CostInterface getCostService()
+ * @method FilesystemInterface getFilesystemService()
  */
 class Bank extends AbstractServiceTable implements BankInterface
 {
@@ -41,17 +43,65 @@ class Bank extends AbstractServiceTable implements BankInterface
      */
     public function import($filename)
     {
-        $data = $this->getExcelService()->toArray($filename);
-        array_shift($data);
-        array_shift($data);
-        $this->beginTransaction();
+        $ext = $this->getFilesystemService()->getFileExtension($filename);
+
+        // import excel
         $nb = 0;
+        if ('txt' !== $ext) {
+            $data = $this->getExcelService()->toArray($filename);
+            array_shift($data);
+            array_shift($data);
+            $this->beginTransaction();
+            try {
+                foreach ($data as $item) {
+                    $insertData = [
+                        'date_operation' => $this->getDateService()->dateToMysql($item[self::IMPORT_COL_DATE]),
+                        'label'          => $item[self::IMPORT_COL_LABEL],
+                        'amount'         => $item[self::IMPORT_COL_AMOUNT],
+                        'date_created'   => $this->getDateService()->getCurrentMysqlDatetime(),
+                        'status'         => self::STATUS_NEW,
+                    ];
+
+                    if (true === $this->isOperationAlreadyExits($insertData['date_operation'], $insertData['label'])) {
+                        continue;
+                    }
+
+                    $this->insert($insertData);
+                    $nb++;
+                }
+                $this->commitTransaction();
+            } catch (\RuntimeException $e) {
+                $this->rollbackTransaction();
+                throw $this->getThrowException('bank.import.failed', ['{error}' => $e->getMessage()]);
+            }
+
+            return $nb;
+        }
+
+        // import bankin
+        $data = $this->getFilesystemService()->readFile($filename);
+        list($year, $dummy) = explode('-', basename($filename));
+        $data = explode("\r\n", $data);
+        $listM = ['F', 'JAN.', 'FEV.', 'MAR.', 'AVR.', 'MAI', 'JUIN', 'JUIL.', 'AOUT', 'SEPT.', 'OCT.', 'NOV.', 'DEC.'];
+        $listM = array_flip($listM);
+        $stop = count($data);
+        $this->beginTransaction();
         try {
-            foreach ($data as $item) {
+
+            for ($i = 0; $i < $stop; $i++) {
+                $day = $data[$i];
+                $i++;
+                $month = $listM[$data[$i]];
+                $i++;
+                $label = $data[$i];
+                $i += 2;
+                $amount = str_replace(' €', '', $data[$i]);
+                $i++;
+
                 $insertData = [
-                    'date_operation' => $this->getDateService()->dateToMysql($item[self::IMPORT_COL_DATE]),
-                    'label'          => $item[self::IMPORT_COL_LABEL],
-                    'amount'         => $item[self::IMPORT_COL_AMOUNT],
+                    'date_operation' => $year . '-' . $month . '-' . $day,
+                    'label'          => $label,
+                    'amount'         => $amount,
                     'date_created'   => $this->getDateService()->getCurrentMysqlDatetime(),
                     'status'         => self::STATUS_NEW,
                 ];
@@ -59,7 +109,6 @@ class Bank extends AbstractServiceTable implements BankInterface
                 if (true === $this->isOperationAlreadyExits($insertData['date_operation'], $insertData['label'])) {
                     continue;
                 }
-
                 $this->insert($insertData);
                 $nb++;
             }
@@ -70,6 +119,7 @@ class Bank extends AbstractServiceTable implements BankInterface
         }
 
         return $nb;
+
     }
 
     /**
@@ -141,6 +191,7 @@ class Bank extends AbstractServiceTable implements BankInterface
         $operation = $this->checkId($id);
         $this->update(['status' => BankInterface::STATUS_SORTED], ['id' => $id]);
         $this->getCostService()->insert(['amount' => $operation['amount'], 'id_bank' => $id, 'id_category' => $tagId]);
+
         return $this;
     }
 
@@ -156,6 +207,7 @@ class Bank extends AbstractServiceTable implements BankInterface
         $this->checkId($id);
         $this->update(['status' => BankInterface::STATUS_NEW], ['id' => $id]);
         $this->getCostService()->delete(['id_bank' => $id]);
+
         return $this;
     }
 

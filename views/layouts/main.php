@@ -12,7 +12,7 @@ ActionAsset::register($this);
 
 $currentUrl = yii::$app->controller->id . '/' . yii::$app->controller->action->id;
 $menu = [
-    'Opération' => 'site/process',
+    'Opération' => '/site/process',
 ];
 $this->title = 'HomeCost';
 $this->beginPage()

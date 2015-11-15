@@ -15,7 +15,7 @@ $this->title = 'HomeCost';
                 <input id="excelFile" type="file" class="file-loading">
             </div>
         </div>
-
+        <small>Fichier export relevé BNP ou {annee}-bankin.txt</small>
     </div>
 
 

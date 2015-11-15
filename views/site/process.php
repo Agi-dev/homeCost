@@ -14,28 +14,21 @@ $htmlCateg = implode('&nbsp;', $htmlCateg);
 ?>
 
     <div class="page-header">
-        <h1>Traitements des nouvelles opérations</h1>
+        <h1>Traitements des nouvelles opérations <span class="badge"><?php echo count($data);?></span></h1>
     </div>
 <?php if ($data): ?>
     <table class="table table-striped table-condensed">
         <thead> <!-- En-tête du tableau -->
         <tr>
             <th>Date</th>
+            <th>Montant</th>
             <th>Opération</th>
             <th>Catégorie</th>
             <th>Ignore</th>
-            <!--        <th>Sous-Catégorie</th>-->
         </tr>
         </thead>
 
         <tfoot> <!-- Pied de tableau -->
-        <tr>
-            <th>Date</th>
-            <th>Opération</th>
-            <th>Catégorie</th>
-            <th>Ignore</th>
-            <!--        <th>Sous-Catégorie</th>-->
-        </tr>
         </tfoot>
 
         <tbody> <!-- Corps du tableau -->
@@ -43,6 +36,7 @@ $htmlCateg = implode('&nbsp;', $htmlCateg);
         <?php foreach ($data as $item): ?>
             <tr data-id="<?php echo $item['id'];?>">
                 <td><?php echo $dateService->dateMysqlToI18nString($item['date_operation']); ?></td>
+                <td class="<?php echo intval( $item['amount']) > 0 ? 'success':'warning';?>"><strong><?php echo $item['amount']; ?> &euro;</strong></td>
                 <td><?php echo $item['label']; ?></td>
                 <td><?php echo str_replace('btn-id', 'btn-id-'.$item['id'],$htmlCateg); ?></td>
                 <td>

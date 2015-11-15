@@ -13,7 +13,7 @@ $(document).on('ready', function() {
         uploadUrl: "http://localhost.homecost.com/site/upload", // server upload action
         uploadAsync: false,
         showPreview: false,
-        allowedFileExtensions: ['xls']
+        allowedFileExtensions: ['xls', 'txt']
     }).on("filebatchselected", function(event, files) {
         // trigger upload method immediately after files are selected
         $("#excelFile").fileinput("upload");
