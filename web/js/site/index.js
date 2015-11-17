@@ -10,7 +10,7 @@ $(document).on('ready', function() {
         showCaption: false,
         showRemove: false,
         showUpload: false,
-        uploadUrl: "http://localhost.homecost.com/site/upload", // server upload action
+        uploadUrl: "/site/upload", // server upload action
         uploadAsync: false,
         showPreview: false,
         allowedFileExtensions: ['xls', 'txt']
