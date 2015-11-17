@@ -15,12 +15,12 @@
     "yiisoft/yii2": ">=2.0.5",
     "yiisoft/yii2-bootstrap": "*",
     "kartik-v/bootstrap-fileinput": "dev-master",
+    "yiisoft/yii2-gii": "*",
     "NumericWorkshop/Serval": "dev-master"
   },
   "require-dev": {
     "yiisoft/yii2-codeception": "*",
     "yiisoft/yii2-debug": "*",
-    "yiisoft/yii2-gii": "*",
     "yiisoft/yii2-faker": "*",
     "phpunit/phpunit": "4.*"
   },

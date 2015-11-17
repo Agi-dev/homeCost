@@ -392,12 +392,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "cd5d5f030b4a2c2df971c68543d3ef76deb8d651"
+                "reference": "d0bfaec05d1881f56bbb00e6e4c7004b49562eb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/cd5d5f030b4a2c2df971c68543d3ef76deb8d651",
-                "reference": "cd5d5f030b4a2c2df971c68543d3ef76deb8d651",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/d0bfaec05d1881f56bbb00e6e4c7004b49562eb9",
+                "reference": "d0bfaec05d1881f56bbb00e6e4c7004b49562eb9",
                 "shasum": ""
             },
             "require": {
@@ -447,7 +447,7 @@
                 "phonenumber",
                 "validation"
             ],
-            "time": "2015-11-10 17:26:25"
+            "time": "2015-11-12 14:17:02"
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
@@ -455,12 +455,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "cdf32abb5272d2dabd0d9ee566e2d818b0d1d4bf"
+                "reference": "c828dbb70f5bac2ff68167c537e90dece4591156"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/cdf32abb5272d2dabd0d9ee566e2d818b0d1d4bf",
-                "reference": "cdf32abb5272d2dabd0d9ee566e2d818b0d1d4bf",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/c828dbb70f5bac2ff68167c537e90dece4591156",
+                "reference": "c828dbb70f5bac2ff68167c537e90dece4591156",
                 "shasum": ""
             },
             "type": "library",
@@ -495,7 +495,7 @@
                 "progress",
                 "upload"
             ],
-            "time": "2015-11-05 03:46:29"
+            "time": "2015-11-13 16:04:11"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -503,19 +503,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPOffice/PHPExcel.git",
-                "reference": "6a8fca703ca1b1de44d4acf1c1695ea1c0196085"
+                "reference": "ecdb406d4da9741d8efe31e23cc9f641b644effb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/6a8fca703ca1b1de44d4acf1c1695ea1c0196085",
-                "reference": "6a8fca703ca1b1de44d4acf1c1695ea1c0196085",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/ecdb406d4da9741d8efe31e23cc9f641b644effb",
+                "reference": "ecdb406d4da9741d8efe31e23cc9f641b644effb",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "ext-xml": "*",
                 "ext-xmlwriter": "*",
-                "php": ">=5.2.0"
+                "php": "^5.2|^7.0"
             },
             "require-dev": {
                 "squizlabs/php_codesniffer": "2.*"
@@ -556,7 +556,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2015-10-28 00:47:01"
+            "time": "2015-11-15 18:04:45"
         },
         {
             "name": "psr/log",
@@ -651,12 +651,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "abba6fa9bc353c9a39355684814c496ce656260d"
+                "reference": "0df296d99ea488ddc419d47d13fe5c2acd97c8c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/abba6fa9bc353c9a39355684814c496ce656260d",
-                "reference": "abba6fa9bc353c9a39355684814c496ce656260d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/0df296d99ea488ddc419d47d13fe5c2acd97c8c9",
+                "reference": "0df296d99ea488ddc419d47d13fe5c2acd97c8c9",
                 "shasum": ""
             },
             "require": {
@@ -732,7 +732,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-11-11 07:46:16"
+            "time": "2015-11-17 12:18:26"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -740,12 +740,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "09a5bfe72c0141ad26281848f1ae9c3f42541f20"
+                "reference": "6fd96d4bf965625a29090e43fcc2870e279ae20d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/09a5bfe72c0141ad26281848f1ae9c3f42541f20",
-                "reference": "09a5bfe72c0141ad26281848f1ae9c3f42541f20",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/6fd96d4bf965625a29090e43fcc2870e279ae20d",
+                "reference": "6fd96d4bf965625a29090e43fcc2870e279ae20d",
                 "shasum": ""
             },
             "require": {
@@ -782,7 +782,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2015-10-25 21:18:48"
+            "time": "2015-11-15 12:20:29"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -920,12 +920,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "cd5fb1c262e1734366e77688b011a0f0422ce06d"
+                "reference": "008e69f17a1286c29b8a60082119b7d6eee69082"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/cd5fb1c262e1734366e77688b011a0f0422ce06d",
-                "reference": "cd5fb1c262e1734366e77688b011a0f0422ce06d",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/008e69f17a1286c29b8a60082119b7d6eee69082",
+                "reference": "008e69f17a1286c29b8a60082119b7d6eee69082",
                 "shasum": ""
             },
             "require": {
@@ -962,7 +962,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2015-11-09 08:00:48"
+            "time": "2015-11-16 08:55:57"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -1994,12 +1994,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-faker.git",
-                "reference": "e57895f8f3f8307229f5024b993fe59c4dde7541"
+                "reference": "9d7b306ebdeef792adb796e5db1e57e068a5041a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-faker/zipball/e57895f8f3f8307229f5024b993fe59c4dde7541",
-                "reference": "e57895f8f3f8307229f5024b993fe59c4dde7541",
+                "url": "https://api.github.com/repos/yiisoft/yii2-faker/zipball/9d7b306ebdeef792adb796e5db1e57e068a5041a",
+                "reference": "9d7b306ebdeef792adb796e5db1e57e068a5041a",
                 "shasum": ""
             },
             "require": {
@@ -2033,7 +2033,7 @@
                 "faker",
                 "yii2"
             ],
-            "time": "2015-11-10 09:57:48"
+            "time": "2015-11-15 11:52:16"
         },
         {
             "name": "yiisoft/yii2-gii",
