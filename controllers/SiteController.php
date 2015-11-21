@@ -60,7 +60,7 @@ class SiteController extends MyController
         $dateService = $this->getService('date');
         /** @var CategoryInterface $categoryService */
         $categoryService = $this->getService('category');
-        $listCateg = $categoryService->listAll();
+        $listCateg = $categoryService->listMajor();
         $data = $bankService->listNew();
         return $this->renderAction(compact('data', 'dateService', 'listCateg'));
     }

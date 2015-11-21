@@ -57,6 +57,13 @@ interface BankInterface extends ServiceTableInterface
     public function listNew();
 
     /**
+     * count operation need to be sorted
+     *
+     * @return int
+     */
+    public function countNew();
+
+    /**
      * ignore operation
      *
      * @param $id

@@ -12,4 +12,5 @@ return array(
     'listAll'  => 'SELECT ' . $attrSql . ' FROM ' . $tablename,
     'getByDateAndLabel' => 'SELECT ' . $attrSql . ' FROM ' . $tablename . ' WHERE date_operation = :date AND label = :label',
     'listNew' => 'SELECT ' . $attrSql . ' FROM ' . $tablename . ' WHERE status = ' . BankInterface::STATUS_NEW . ' ORDER BY date_operation DESC, label',
+    'countNew' => 'SELECT count(id) as nb FROM ' . $tablename . ' WHERE status = ' . BankInterface::STATUS_NEW . ' ORDER BY date_operation DESC, label',
 );

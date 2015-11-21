@@ -12,10 +12,11 @@ ActionAsset::register($this);
 
 $currentUrl = yii::$app->controller->id . '/' . yii::$app->controller->action->id;
 $menu = [
-    'Opération' => '/site/process',
+    'Opération' . ($this->params['nbNew'] > 0 ? ' <span class="label label-danger">' . $this->params['nbNew'] . '</span>':'') => '/site/process',
 ];
 $this->title = 'HomeCost';
-$this->beginPage()
+$this->beginPage();
+
 ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -48,7 +49,7 @@ $this->beginPage()
                 <ul class="nav navbar-nav">
                 <?php foreach($menu as $label => $url):?>
                     <li class="<?php echo ($currentUrl === $url ? 'active':'' );?>">
-                        <a href="<?php echo Url::to($url);?>"><?php echo $label; //<span class="sr-only">(current)</span>?> </a></li>
+                        <a href="<?php echo Url::to($url);?>"><?php echo $label;?></a></li>
                 <?php endforeach;?>
                 </ul>
             </div><!-- /.navbar-collapse -->

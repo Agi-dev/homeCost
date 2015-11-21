@@ -62,12 +62,7 @@ class Bank extends AbstractServiceTable implements BankInterface
                         'status'         => self::STATUS_NEW,
                     ];
 
-                    if (true === $this->isOperationAlreadyExits($insertData['date_operation'], $insertData['label'])) {
-                        continue;
-                    }
-
-                    $this->insert($insertData);
-                    $nb++;
+                    if (null !== $this->_addOperation($insertData)) $nb++;
                 }
                 $this->commitTransaction();
             } catch (\RuntimeException $e) {
@@ -106,11 +101,7 @@ class Bank extends AbstractServiceTable implements BankInterface
                     'status'         => self::STATUS_NEW,
                 ];
 
-                if (true === $this->isOperationAlreadyExits($insertData['date_operation'], $insertData['label'])) {
-                    continue;
-                }
-                $this->insert($insertData);
-                $nb++;
+               if (null !== $this->_addOperation($insertData)) $nb++;
             }
             $this->commitTransaction();
         } catch (\RuntimeException $e) {
@@ -120,6 +111,38 @@ class Bank extends AbstractServiceTable implements BankInterface
 
         return $nb;
 
+    }
+
+    /**
+     * @param $data
+     *
+     * @return mixed
+     */
+    protected function _addOperation($data)
+    {
+        if (true === $this->isOperationAlreadyExits($data['date_operation'], $data['label'])) {
+            return null;
+        }
+
+        $id = $this->insert($data);
+
+        // guess category
+        $categId = $this->getCategoryService()->guess($data['label']);
+        if (null !== $categId) {
+            $insertData = [
+                'amount'      => $data['amount'],
+                'guessed'     => 1,
+                'category_id' => $categId,
+                'bank_id'     => $id,
+            ];
+            $this->getCostService()->insert($insertData);
+            $this->update(
+                ['status' => BankInterface::STATUS_SORTED],
+                ['id' => $id]
+            );
+        }
+
+        return $id;
     }
 
     /**
@@ -144,11 +167,18 @@ class Bank extends AbstractServiceTable implements BankInterface
      */
     public function listNew()
     {
-        $result = $this->fetchAll('listNew');
-        foreach ($result as &$operation) {
-            $operation['category_id'] = $this->getCategoryService()->guess($operation['label']);
-        }
-        return $result;
+        return $this->fetchAll('listNew');
+    }
+
+    /**
+     * count operation need to be sorted
+     *
+     * @return int
+     */
+    public function countNew()
+    {
+        $result = $this->fetchAll('countNew');
+        return $result[0]['nb'];
     }
 
     /**

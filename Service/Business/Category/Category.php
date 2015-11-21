@@ -48,6 +48,11 @@ class Category extends AbstractServiceTable implements CategoryInterface
         return null;
     }
 
+    public function listMajor()
+    {
+        return $this->fetchAll('listMajor');
+    }
+
     /**
      * List table fields
      *
