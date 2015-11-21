@@ -11,12 +11,16 @@
 namespace Service\Business\Category;
 
 use Serval\Base\Table\AbstractServiceTable;
+use Service\Business\Rules\RulesInterface;
 
 /**
  * Class Category is a class to handle table category operations.
+ *
+ * @method RulesInterface getRulesService()
  */
 class Category extends AbstractServiceTable implements CategoryInterface
 {
+    protected $_listRules;
     /**
      * tablename in bdd
      * @var string
@@ -28,11 +32,20 @@ class Category extends AbstractServiceTable implements CategoryInterface
      *
      * @param $label
      *
-     * @return int
+     * @return int|null
      */
     public function guess($label)
     {
+        if (null === $this->_listRules) {
+            $this->_listRules = $this->getRulesService()->listAll();
+        }
 
+        foreach ($this->_listRules as $rule) {
+            if (1 === preg_match('#' . $rule['rule'] . '#i', $label)) {
+                return $rule['category_id'];
+            }
+        }
+        return null;
     }
 
     /**

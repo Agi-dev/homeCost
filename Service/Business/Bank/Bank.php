@@ -146,7 +146,7 @@ class Bank extends AbstractServiceTable implements BankInterface
     {
         $result = $this->fetchAll('listNew');
         foreach ($result as &$operation) {
-            $operation['categId'] = $this->getCategoryService()->guess($operation['label']);
+            $operation['category_id'] = $this->getCategoryService()->guess($operation['label']);
         }
         return $result;
     }

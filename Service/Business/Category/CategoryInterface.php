@@ -16,5 +16,12 @@ use Serval\Base\Table\ServiceTableInterface;
 */
 interface CategoryInterface extends ServiceTableInterface
 {
-
+    /**
+     * guess category from a label
+     *
+     * @param $label
+     *
+     * @return int|null
+     */
+    public function guess($label);
 }

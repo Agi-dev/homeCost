@@ -16,5 +16,4 @@ use Serval\Base\Table\ServiceTableInterface;
 */
 interface RulesInterface extends ServiceTableInterface
 {
-
 }

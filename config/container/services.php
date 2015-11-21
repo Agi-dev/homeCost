@@ -45,6 +45,7 @@ $localBusinessServices = [
     'Bank',
     'Category',
     'Cost',
+    'Rules',
 ];
 foreach ($localBusinessServices as $service) {
     $services['services'][lcfirst($service)] = 'Service\\Business\\' . $service . '\\' . $service;
