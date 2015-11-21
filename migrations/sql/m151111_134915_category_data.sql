@@ -7,3 +7,16 @@ INSERT INTO category (id, label, tag) VALUES (6, 'Impôts', 'impot');
 INSERT INTO category (id, label, tag) VALUES (7, 'Maison', 'house');
 INSERT INTO category (id, label, tag) VALUES (8, 'Loisirs', 'loisir');
 INSERT INTO category (id, label, tag) VALUES (9, 'Divers', 'divers');
+INSERT INTO category (id, label, tag) VALUES (10, 'Chauffage', 'calor');
+INSERT INTO category (id, label, tag) VALUES (11, 'Prêt', 'pret');
+INSERT INTO category (id, label, tag) VALUES (12, 'Coiffeur', 'tif');
+INSERT INTO category (id, label, tag) VALUES (13, 'Habits', 'habit');
+INSERT INTO category (id, label, tag) VALUES (14, 'Ecole', 'ecole');
+INSERT INTO category (id, label, tag) VALUES (15, 'Eau', 'eau');
+
+INSERT INTO subcategory (id, category_id) VALUES (10, 7);
+INSERT INTO subcategory (id, category_id) VALUES (11, 7);
+INSERT INTO subcategory (id, category_id) VALUES (12, 9);
+INSERT INTO subcategory (id, category_id) VALUES (13, 3);
+INSERT INTO subcategory (id, category_id) VALUES (14, 3);
+INSERT INTO subcategory (id, category_id) VALUES (15, 7);

@@ -61,7 +61,6 @@ class SiteController extends MyController
         /** @var CategoryInterface $categoryService */
         $categoryService = $this->getService('category');
         $listCateg = $categoryService->listAll();
-
         $data = $bankService->listNew();
         return $this->renderAction(compact('data', 'dateService', 'listCateg'));
     }

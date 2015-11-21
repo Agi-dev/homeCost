@@ -31,7 +31,7 @@ class Cost extends AbstractServiceTable implements CostInterface
      */
     public function listFields()
     {
-        return array('id');
+        return array('id', 'amount', 'guessed', 'category_id', 'bank_id');
     }
 
     /**

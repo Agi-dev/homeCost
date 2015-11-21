@@ -95,7 +95,7 @@ class Bank extends AbstractServiceTable implements BankInterface
                 $i++;
                 $label = $data[$i];
                 $i += 2;
-                $amount = str_replace(' €', '', $data[$i]);
+                $amount = floatval(str_replace(' ', '', str_replace(' €', '', $data[$i])));
                 $i++;
 
                 $insertData = [
@@ -138,13 +138,17 @@ class Bank extends AbstractServiceTable implements BankInterface
     }
 
     /**
-     * list new operation
+     * list new operation an try to guess main category
      *
      * @return array
      */
     public function listNew()
     {
-        return $this->fetchAll('listNew');
+        $result = $this->fetchAll('listNew');
+        foreach ($result as &$operation) {
+            $operation['categId'] = $this->getCategoryService()->guess($operation['label']);
+        }
+        return $result;
     }
 
     /**
@@ -158,7 +162,7 @@ class Bank extends AbstractServiceTable implements BankInterface
     {
         $this->checkId($id);
         $this->update(['status' => BankInterface::STATUS_IGNORED], ['id' => $id]);
-        $this->getCostService()->delete(['id_bank' => $id]);
+        $this->getCostService()->delete(['bank_id' => $id]);
 
         return $this;
     }
@@ -190,7 +194,7 @@ class Bank extends AbstractServiceTable implements BankInterface
     {
         $operation = $this->checkId($id);
         $this->update(['status' => BankInterface::STATUS_SORTED], ['id' => $id]);
-        $this->getCostService()->insert(['amount' => $operation['amount'], 'id_bank' => $id, 'id_category' => $tagId]);
+        $this->getCostService()->insert(['amount' => $operation['amount'], 'bank_id' => $id, 'category_id' => $tagId]);
 
         return $this;
     }
@@ -206,7 +210,7 @@ class Bank extends AbstractServiceTable implements BankInterface
     {
         $this->checkId($id);
         $this->update(['status' => BankInterface::STATUS_NEW], ['id' => $id]);
-        $this->getCostService()->delete(['id_bank' => $id]);
+        $this->getCostService()->delete(['bank_id' => $id]);
 
         return $this;
     }

@@ -8,32 +8,20 @@
  * file that was distributed with this source code.
  */
 
-namespace Service\Business\Category;
+namespace Service\Business\Rules;
 
 use Serval\Base\Table\AbstractServiceTable;
 
 /**
- * Class Category is a class to handle table category operations.
+ * Class Rules is a class to handle table rules operations.
  */
-class Category extends AbstractServiceTable implements CategoryInterface
+class Rules extends AbstractServiceTable implements RulesInterface
 {
     /**
      * tablename in bdd
      * @var string
      */
-    protected $tablename = 'category';
-
-    /**
-     * guess category from a label
-     *
-     * @param $label
-     *
-     * @return int
-     */
-    public function guess($label)
-    {
-
-    }
+    protected $tablename = 'rules';
 
     /**
      * List table fields

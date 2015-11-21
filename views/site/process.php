@@ -5,10 +5,13 @@
  * @var array $listCateg
  */
 use Serval\Technical\Date\DateInterface;
+use yii\helpers\Url;
 
 $htmlCateg = [];
+$nb=1;
 foreach ($listCateg as $item) {
-    $htmlCateg[] = $this->render('partials/categ_label', $item);
+    $htmlCateg[] = $this->render('partials/categ_label', $item) . (($nb%5) === 0 ? '<div class="clearfix"></div>':'');
+    $nb++;
 }
 $htmlCateg = implode('&nbsp;', $htmlCateg);
 ?>
@@ -20,11 +23,11 @@ $htmlCateg = implode('&nbsp;', $htmlCateg);
     <table class="table table-striped table-condensed">
         <thead> <!-- En-tête du tableau -->
         <tr>
-            <th>Date</th>
-            <th>Montant</th>
+            <th class="text-center">Date</th>
+            <th class="text-center">Montant</th>
             <th>Opération</th>
             <th>Catégorie</th>
-            <th>Ignore</th>
+            <th class="text-center">Ignore</th>
         </tr>
         </thead>
 
@@ -35,11 +38,11 @@ $htmlCateg = implode('&nbsp;', $htmlCateg);
 
         <?php foreach ($data as $item): ?>
             <tr data-id="<?php echo $item['id'];?>">
-                <td><?php echo $dateService->dateMysqlToI18nString($item['date_operation']); ?></td>
-                <td class="<?php echo intval( $item['amount']) > 0 ? 'success':'warning';?>"><strong><?php echo $item['amount']; ?> &euro;</strong></td>
+                <td class="text-center"><?php echo $dateService->dateMysqlToI18nString($item['date_operation']); ?></td>
+                <td class="text-center <?php echo intval( $item['amount']) > 0 ? 'success':'warning';?>"><strong><?php echo $item['amount']; ?> &euro;</strong></td>
                 <td><?php echo $item['label']; ?></td>
                 <td><?php echo str_replace('btn-id', 'btn-id-'.$item['id'],$htmlCateg); ?></td>
-                <td>
+                <td class="text-center">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" name="ignore" class="ckb-ignore ckb-id-<?php echo $item['id'];?>"> Oui

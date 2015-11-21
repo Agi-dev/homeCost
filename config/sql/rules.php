@@ -1,7 +1,6 @@
 <?php
-$tablename = 'cost';
-$listAttr = array('id', 'amount', 'guessed', 'category_id', 'bank_id');
-
+$tablename = 'rules';
+$listAttr = array('id', 'rule', 'category_id');
 foreach ($listAttr as &$attr) {
     $attr = $tablename . '.' . $attr;
 }

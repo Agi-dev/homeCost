@@ -3,7 +3,9 @@ body {
     height: 100%;
 }
 
-body { padding-top: 50px; }
+body {
+    padding-top: 50px;
+}
 
 .wrap {
     min-height: 100%;
@@ -90,4 +92,17 @@ a.desc:after {
     border-left: 3px solid #eed3d7;
     padding: 10px 20px;
     margin: 0 0 15px 0;
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    vertical-align: middle;
+}
+
+button.btn-categ{
+    margin-top: 5px;
 }
