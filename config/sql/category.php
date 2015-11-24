@@ -11,6 +11,5 @@ return array(
     'listAll'  => 'SELECT ' . $attrSql . ' FROM ' . $tablename . ' ORDER BY tag',
     'listMajor' => 'SELECT ' . $attrSql
                 . ' FROM ' . $tablename
-                . ' WHERE id NOT IN (SELECT id FROM subcategory)'
                 . ' ORDER BY tag',
 );

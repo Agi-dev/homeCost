@@ -23,6 +23,17 @@ class Cost extends AbstractServiceTable implements CostInterface
      */
     protected $tablename = 'cost';
 
+    public function listStatByCategory()
+    {
+        $listStats = [];
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $prevMonth = date("m",strtotime("-1 month"));
+        $prevYear = date("Y",strtotime("-1 year"));
+
+
+    }
+
     /**
      * List table fields
      *
@@ -31,7 +42,7 @@ class Cost extends AbstractServiceTable implements CostInterface
      */
     public function listFields()
     {
-        return array('id', 'amount', 'guessed', 'category_id', 'bank_id');
+        return array('id', 'amount', 'date', 'guessed', 'category_id', 'bank_id');
     }
 
     /**

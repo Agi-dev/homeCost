@@ -12,7 +12,9 @@ ActionAsset::register($this);
 
 $currentUrl = yii::$app->controller->id . '/' . yii::$app->controller->action->id;
 $menu = [
-    'Opération' . ($this->params['nbNew'] > 0 ? ' <span class="label label-danger">' . $this->params['nbNew'] . '</span>':'') => '/site/process',
+    'Opération' . ($this->params['nbNew'] > 0 ? ' <span class="label label-danger">'
+        . $this->params['nbNew'] . '</span>':'') => '/site/process',
+    'Dashboard' => '/dashboard',
 ];
 $this->title = 'HomeCost';
 $this->beginPage();

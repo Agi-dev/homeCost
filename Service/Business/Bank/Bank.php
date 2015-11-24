@@ -131,6 +131,7 @@ class Bank extends AbstractServiceTable implements BankInterface
         if (null !== $categId) {
             $insertData = [
                 'amount'      => $data['amount'],
+                'date'        => $data['date_operation'],
                 'guessed'     => 1,
                 'category_id' => $categId,
                 'bank_id'     => $id,
