@@ -103,6 +103,10 @@ a.desc:after {
     vertical-align: middle;
 }
 
+.table > tfoot > tr > th {
+    border-top: 2px solid #ddd;
+}
+
 button.btn-categ{
     margin-top: 5px;
 }

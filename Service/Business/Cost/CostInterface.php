@@ -16,5 +16,22 @@ use Serval\Base\Table\ServiceTableInterface;
 */
 interface CostInterface extends ServiceTableInterface
 {
+    /**
+     * @param $year
+     *
+     * @return array
+     */
+    public function listStatByCategoryAndYearOrderedByMonth($year);
 
+    /**
+     * @param $year
+     *
+     * @return array
+     */
+    public function listStatByCategoryAndYear($year);
+
+    /**
+     * @return array
+     */
+    public function listStatByCategory();
 }

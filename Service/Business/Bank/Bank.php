@@ -55,7 +55,7 @@ class Bank extends AbstractServiceTable implements BankInterface
             try {
                 foreach ($data as $item) {
                     $insertData = [
-                        'date_operation' => $this->getDateService()->dateToMysql($item[self::IMPORT_COL_DATE]),
+                        'date_operation' => $this->getDateService()->dateI18nToMysql($item[self::IMPORT_COL_DATE]),
                         'label'          => $item[self::IMPORT_COL_LABEL],
                         'amount'         => $item[self::IMPORT_COL_AMOUNT],
                         'date_created'   => $this->getDateService()->getCurrentMysqlDatetime(),
@@ -65,7 +65,7 @@ class Bank extends AbstractServiceTable implements BankInterface
                     if (null !== $this->_addOperation($insertData)) $nb++;
                 }
                 $this->commitTransaction();
-            } catch (\RuntimeException $e) {
+            } catch (\Exception $e) {
                 $this->rollbackTransaction();
                 throw $this->getThrowException('bank.import.failed', ['{error}' => $e->getMessage()]);
             }
@@ -225,7 +225,7 @@ class Bank extends AbstractServiceTable implements BankInterface
     {
         $operation = $this->checkId($id);
         $this->update(['status' => BankInterface::STATUS_SORTED], ['id' => $id]);
-        $this->getCostService()->insert(['amount' => $operation['amount'], 'bank_id' => $id, 'category_id' => $tagId]);
+        $this->getCostService()->insert(['amount' => $operation['amount'], 'bank_id' => $id, 'category_id' => $tagId, 'date' => $operation['date_operation']]);
 
         return $this;
     }

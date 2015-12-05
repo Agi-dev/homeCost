@@ -24,4 +24,16 @@ interface CategoryInterface extends ServiceTableInterface
      * @return int|null
      */
     public function guess($label);
+
+    /**
+     * @return array
+     */
+    public function listMajor();
+
+    /**
+     * @param string $order
+     *
+     * @return array
+     */
+    public function listOrderBy($order = 'label');
 }
