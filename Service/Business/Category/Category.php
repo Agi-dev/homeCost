@@ -56,7 +56,7 @@ class Category extends AbstractServiceTable implements CategoryInterface
     public function listOrderBy($order = 'label')
     {
         if ('tag' === $order) {
-            return $this->fetchAll('listAllOrderedByTag');
+            return $this->fetchAll('listAllOrderByTag');
         }
         return $this->listAll();
     }

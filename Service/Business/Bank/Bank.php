@@ -120,7 +120,7 @@ class Bank extends AbstractServiceTable implements BankInterface
      */
     protected function _addOperation($data)
     {
-        if (true === $this->isOperationAlreadyExits($data['date_operation'], $data['label'])) {
+        if (true === $this->isOperationAlreadyExits($data['date_operation'], $data['label'], $data['amount'])) {
             return null;
         }
 
@@ -151,12 +151,16 @@ class Bank extends AbstractServiceTable implements BankInterface
      *
      * @param $date
      * @param $label
+     * @param $amount
      *
      * @return bool
      */
-    public function isOperationAlreadyExits($date, $label)
+    public function isOperationAlreadyExits($date, $label, $amount)
     {
-        $result = $this->fetchAll('getByDateAndLabel', [':date' => $date, ':label' => $label]);
+        $result = $this->fetchAll(
+            'getByDateAndLabelAndAmount',
+            [':date' => $date, ':label' => $label, ':amount' => $amount]
+        );
 
         return (true === isset($result['0']['id']));
     }

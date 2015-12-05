@@ -44,10 +44,11 @@ interface BankInterface extends ServiceTableInterface
      *
      * @param $date
      * @param $label
+     * @param $amount
      *
      * @return bool
      */
-    public function isOperationAlreadyExits($date, $label);
+    public function isOperationAlreadyExits($date, $label, $amount);
 
     /**
      * list new operation
