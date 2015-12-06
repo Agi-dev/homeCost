@@ -26,14 +26,19 @@ class DashboardController extends MyController
         $header = [];
         $total = ['year' => 0];
         for ($i = 1; $i <= $currentMonth; $i++) {
-            $header[] = $listM[$i];
+            $header[$i] = $listM[$i];
             $total[$i] = 0;
         }
 
         foreach ($listCateg as $categ) {
             $yearAmount = floatval($listStatByCategory['year']['current'][$categ['label']]) / $currentMonth;
             $total['year'] += $yearAmount;
-            $row = ['label' => $categ['label'], 'current' => number_format($yearAmount, 2), 'yearAmount' => $yearAmount];
+            $row = [
+                'categId'    => $categ['id'],
+                'label'      => $categ['label'],
+                'current'    => number_format($yearAmount, 2),
+                'yearAmount' => $yearAmount,
+            ];
             for ($i = 1; $i <= $currentMonth; $i++) {
                 $row['month'][$i] = $listStatByCategory['month'][$i][$categ['label']];
                 $total['month'][$i] += floatval($listStatByCategory['month'][$i][$categ['label']]);
@@ -43,6 +48,25 @@ class DashboardController extends MyController
         }
 
         return $this->renderAction(compact('header', 'data', 'total'));
+    }
+
+    public function actionDetail()
+    {
+        $params = $this->getRequest()->getQueryParams();
+
+        /** @var CostInterface $costService */
+        $costService = $this->getService('cost');
+        /** @var CategoryInterface $categService */
+        $categService = $this->getService('category');
+        $dateService = $this->getService('date');
+
+        $listCosts = $costService->listByFilters($params);
+        $categ = [];
+        if (true === isset($params['category'])) {
+            $categ = $categService->getById($params['category']);
+        }
+
+        return $this->renderAction(compact('listCosts', 'params', 'categ', 'dateService'));
     }
 
 }

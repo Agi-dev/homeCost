@@ -34,4 +34,11 @@ interface CostInterface extends ServiceTableInterface
      * @return array
      */
     public function listStatByCategory();
+
+    /**
+     * @param $filters
+     *
+     * @return mixed
+     */
+    public function listByFilters($filters);
 }

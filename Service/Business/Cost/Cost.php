@@ -40,7 +40,6 @@ class Cost extends AbstractServiceTable implements CostInterface
         );
     }
 
-
     /**
      * @param $year
      *
@@ -72,6 +71,36 @@ class Cost extends AbstractServiceTable implements CostInterface
 
         return $stat;
     }
+
+    /**
+     * @param $filters
+     *
+     * @return mixed
+     */
+    public function listByFilters($filters)
+    {
+        // by year
+        if (true === isset($filters['year'])) {
+            if (true === isset($filters['category'])) {
+                return $this->fetchAll(
+                    'listByYearAndCategoryId',
+                    [':year' => $filters['year'], 'category_id' => $filters['category']]
+                );
+            }
+            return $this->fetchAll('listByYear', [':year' => $filters['year']]);
+        }
+
+        // by month
+        if (true === isset($filters['category'])) {
+            return $this->fetchAll(
+                'listByMonthAndCategoryId',
+                [':month' => $filters['month'], 'category_id' => $filters['category']]
+            );
+        }
+
+        return $this->fetchAll('listByMonth', [':month' => $filters['month']]);
+    }
+
 
     /**
      * List table fields

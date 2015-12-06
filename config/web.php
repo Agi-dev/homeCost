@@ -43,7 +43,9 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 'debug/<controller:\w+>/<action:\w+>' => 'debug/<controller>/<action>',
-                '<controller:\w+>/<action:\w+>/*' => '<module>/<controller>/<action>',
+                'dashboard/detail/<year:\d{4}>/<category>' => 'dashboard/detail',
+                'dashboard/detail/<month:\d{1|2}>/<category>' => 'dashboard/detail',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ],
         ],
     ],
