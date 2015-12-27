@@ -54,8 +54,13 @@ class Bank extends AbstractServiceTable implements BankInterface
             $this->beginTransaction();
             try {
                 foreach ($data as $item) {
+                    $item[self::IMPORT_COL_DATE] = str_replace('-', '/', $item[self::IMPORT_COL_DATE]);
+                    $dateOp = $this->getDateService()->dateI18nToMysql($item[self::IMPORT_COL_DATE]);
+                    if (null === $dateOp) {
+                        throw $this->getThrowException('bank.import.date.badformat', array('{date}' => $dateOp));
+                    }
                     $insertData = [
-                        'date_operation' => $this->getDateService()->dateI18nToMysql($item[self::IMPORT_COL_DATE]),
+                        'date_operation' => $dateOp,
                         'label'          => $item[self::IMPORT_COL_LABEL],
                         'amount'         => $item[self::IMPORT_COL_AMOUNT],
                         'date_created'   => $this->getDateService()->getCurrentMysqlDatetime(),
