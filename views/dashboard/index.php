@@ -6,10 +6,18 @@
  */
 use yii\helpers\Url;
 
+$currentYear = intval(date('Y'));
 ?>
 
 <div class="page-header">
     <h1>Dashboard</h1>
+</div>
+<div class="btn-group" data-toggle="buttons">
+    <?php for($i = 2015; $i <= $currentYear; $i++):?>
+    <label class="btn btn-primary btn-year <?php echo ($i === $currentYear ? 'active':'');?>">
+        <input type="radio" name="year" value="<?php echo $i;?>" autocomplete="off" <?php echo ($i === $currentYear ? 'checked':'');?>> <?php echo $i;?>
+    </label>
+    <?php endfor;?>
 </div>
 <table class="table table-striped table-condensed table-bordered">
     <thead> <!-- En-tête du tableau -->
