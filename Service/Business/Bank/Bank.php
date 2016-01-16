@@ -61,7 +61,7 @@ class Bank extends AbstractServiceTable implements BankInterface
                     }
                     $insertData = [
                         'date_operation' => $dateOp,
-                        'label'          => $item[self::IMPORT_COL_LABEL],
+                        'label'          => $item[self::IMPORT_COL_OP] . ' ' . $item[self::IMPORT_COL_LABEL],
                         'amount'         => $item[self::IMPORT_COL_AMOUNT],
                         'date_created'   => $this->getDateService()->getCurrentMysqlDatetime(),
                         'status'         => self::STATUS_NEW,

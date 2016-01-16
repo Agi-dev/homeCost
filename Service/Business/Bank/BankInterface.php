@@ -27,6 +27,7 @@ interface BankInterface extends ServiceTableInterface
      * IMPORT COLUMN
      */
     const IMPORT_COL_DATE   = 0;
+    const IMPORT_COL_OP     = 2;
     const IMPORT_COL_LABEL  = 3;
     const IMPORT_COL_AMOUNT = 4;
 
