@@ -24,7 +24,6 @@ use yii\web\HttpException;
  */
 class MyController extends Controller
 {
-
     public function beforeAction($action)
     {
         /** @var BankInterface $bankService */

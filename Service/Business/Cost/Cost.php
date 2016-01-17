@@ -24,12 +24,14 @@ class Cost extends AbstractServiceTable implements CostInterface
     protected $tablename = 'cost';
 
     /**
+     * @param $year
+     *
      * @return array
      */
-    public function listStatByCategory()
+    public function listStatByCategory($year)
     {
-        $currentYear = date('Y');
-        $prevYear = date("Y",strtotime("-1 year"));
+        $currentYear = $year;
+        $prevYear = $year - 1;
 
         return array(
             'year' => array(

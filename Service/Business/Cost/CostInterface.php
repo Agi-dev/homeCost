@@ -31,9 +31,11 @@ interface CostInterface extends ServiceTableInterface
     public function listStatByCategoryAndYear($year);
 
     /**
+     * @param $year
+     *
      * @return array
      */
-    public function listStatByCategory();
+    public function listStatByCategory($year);
 
     /**
      * @param $filters
