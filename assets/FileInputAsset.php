@@ -21,7 +21,7 @@ class FileInputAsset extends AssetBundle
     ];
     public $js = [
         'js/fileinput.min.js',
-        'js/fileinput_locale_fr.js'
+        'js/locales/fr.js'
     ];
     public $depends = array(
         'app\assets\AppAsset',

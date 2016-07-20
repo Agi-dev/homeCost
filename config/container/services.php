@@ -38,6 +38,17 @@ $services['parameters']['phone'] = [
 ];
 
 /**
+ * ENVIRONNEMENT
+ */
+$mode = getenv('APPLICATION_ENV');
+if (empty($mode)) {
+    $mode = 'prod';
+}
+
+if ('dev' === $mode) {
+    $services['parameters']['database']['password'] = 'root';
+}
+/**
  * SERVICE
  */
 // Business
