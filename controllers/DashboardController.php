@@ -38,7 +38,10 @@ class DashboardController extends MyController
                 $lastYearAmount = floatval($listStatByCategory['year']['previous'][$categ['label']]) / 12;
             }
 
-            $yearAmount = floatval($listStatByCategory['year']['current'][$categ['label']]) / $currentMonth;
+            $yearAmount = 0;
+            if (true === isset($listStatByCategory['year']['current'][$categ['label']])) {
+                $yearAmount = floatval($listStatByCategory['year']['current'][$categ['label']]) / $currentMonth;
+            }
             $total['previous'] += $lastYearAmount;
             $total['year'] += $yearAmount;
             $row = [
@@ -50,7 +53,15 @@ class DashboardController extends MyController
                 'month'      => []
             ];
             foreach($listStatByCategory['month'] as $i => $month){
+                if (false === isset($listStatByCategory['month'][$i][$categ['label']])) {
+                    $row['month'][$i] = 0;
+                    continue;
+                }
                 $row['month'][$i] = $listStatByCategory['month'][$i][$categ['label']];
+
+                if (false === isset($total['month'][$i])) {
+                    $total['month'][$i] = 0;
+                }
                 $total['month'][$i] += floatval($listStatByCategory['month'][$i][$categ['label']]);
             }
 

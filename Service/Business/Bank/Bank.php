@@ -50,6 +50,16 @@ class Bank extends AbstractServiceTable implements BankInterface
         if ('txt' !== $ext) {
             $data = $this->getExcelService()->toArray($filename);
             array_shift($data);
+
+            $listCol = implode(';', $data[0]);
+            $validCol = 'Date operation;Categorie operation;Libelle operation;Montant operation;Pointage operation';
+            if ($listCol !== $listCol) {
+                throw $this->getThrowException(
+                    'bank.import.xls.bad.format',
+                    ['{expected}' => $validCol, 'actual' => $listCol]
+                );
+            }
+
             array_shift($data);
             $this->beginTransaction();
             try {
@@ -61,7 +71,7 @@ class Bank extends AbstractServiceTable implements BankInterface
                     }
                     $insertData = [
                         'date_operation' => $dateOp,
-                        'label'          => $item[self::IMPORT_COL_OP] . ' ' . $item[self::IMPORT_COL_LABEL],
+                        'label'          => $item[self::IMPORT_COL_LABEL],
                         'amount'         => $item[self::IMPORT_COL_AMOUNT],
                         'date_created'   => $this->getDateService()->getCurrentMysqlDatetime(),
                         'status'         => self::STATUS_NEW,
@@ -80,8 +90,9 @@ class Bank extends AbstractServiceTable implements BankInterface
 
         // import bankin
         $data = $this->getFilesystemService()->readFile($filename);
-        list($year, $dummy) = explode('-', basename($filename));
-        $data = explode("\r\n", $data);
+        list($year, $dummy) = explode('_', basename($filename));
+        $data = str_replace("\r\n", "\n", $data);
+        $data = explode("\n", $data);
         $listM = ['F', 'JAN.', 'FEV.', 'MAR.', 'AVR.', 'MAI', 'JUIN', 'JUIL.', 'AOUT', 'SEPT.', 'OCT.', 'NOV.', 'DEC.'];
         $listM = array_flip($listM);
         $stop = count($data);
@@ -91,10 +102,20 @@ class Bank extends AbstractServiceTable implements BankInterface
             for ($i = 0; $i < $stop; $i++) {
                 $day = $data[$i];
                 $i++;
+                if ($i >= $stop) {
+                    break;
+                }
                 $month = $listM[$data[$i]];
+                $month = ($month < 10 ? "0".$month:$month);
                 $i++;
+                if ($i >= $stop) {
+                    break;
+                }
                 $label = $data[$i];
                 $i += 2;
+                if ($i >= $stop) {
+                    break;
+                }
                 $amount = floatval(str_replace(' ', '', str_replace(' €', '', $data[$i])));
                 $i++;
 
