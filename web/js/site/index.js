@@ -1,7 +1,7 @@
 /**
  * Created by Francois on 08/11/2015.
  */
-$(document).on('ready', function() {
+$(document).on('ready', function () {
     $("#excelFile").fileinput({
         language: 'fr',
         browseLabel: " Importer un relevé bancaire",
@@ -13,15 +13,15 @@ $(document).on('ready', function() {
         uploadUrl: "/site/upload", // server upload action
         uploadAsync: false,
         showPreview: false,
-        allowedFileExtensions: ['xls', 'txt']
-    }).on("filebatchselected", function(event, files) {
+        allowedFileExtensions: ['xls', 'txt', 'csv']
+    }).on("filebatchselected", function (event, files) {
         // trigger upload method immediately after files are selected
         $("#excelFile").fileinput("upload");
-    }).on('filebatchuploadsuccess', function(event, data) {
-       if ( data.response.success) {
-           toastr.success(data.response.message);
-       } else {
-           toastr.error(data.response.message);
-       }
+    }).on('filebatchuploadsuccess', function (event, data) {
+        if (data.response.success) {
+            toastr.success(data.response.message);
+        } else {
+            toastr.error(data.response.message);
+        }
     });
 });

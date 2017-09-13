@@ -66,11 +66,11 @@ return array(
         . ' FROM ' . $tablename
         . ' INNER JOIN category ca on c.category_id = ca.id'
         . ' INNER JOIN bank b on c.bank_id = b.id'
-        . ' WHERE MONTH(c.date) = :month ORDER BY c.date',
+        . ' WHERE MONTH(c.date) = :month AND YEAR(c.date) = :year ORDER BY c.date',
 
     'listByMonthAndCategoryId' => 'SELECT ' . $attrSql . ', b.label as operation, ca.label as category'
         . ' FROM ' . $tablename
         . ' INNER JOIN category ca on c.category_id = ca.id'
         . ' INNER JOIN bank b on c.bank_id = b.id'
-        . ' WHERE c.category_id = :category_id AND MONTH(c.date) = :month ORDER BY c.date',
+        . ' WHERE c.category_id = :category_id AND MONTH(c.date) = :month AND YEAR(c.date) = :year ORDER BY c.date',
 );

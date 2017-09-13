@@ -7,12 +7,13 @@
  */
 use Serval\Technical\Date\DateInterface;
 
-$listM = ['F', 'de Janvier', 'de Février', 'de Mars', 'd\'Avril', 'de Mai', 'de Juin', 'de Juillet', 'd\'Août', 'de Septembre', 'd\'Octobre', 'de Novembre', 'de Décembre'];
-if (true === isset($params['year'])) {
-    $title = 'Année ' . $params['year'];
+$listM = ['F', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+if (true === isset($params['month'])) {
+    $title = $listM[$params['month']];
+}
 
-} else {
-    $title = 'Mois ' . $listM[$params['month']];
+if (true === isset($params['year'])) {
+    $title .= ' ' . $params['year'];
 }
 
 if (true === isset($params['category'])) {

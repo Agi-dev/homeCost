@@ -35,7 +35,7 @@ $lastYear = $year - 1;
         <th class="text-center"><a href="<?php echo Url::to(['dashboard/detail', 'year' => $lastYear]); ?>" target="_blank"><?php echo $lastYear;?></a></th>
         <th class="text-center"><a href="<?php echo Url::to(['dashboard/detail', 'year' => $year]); ?>" target="_blank"><?php echo $year;?></a></th>
         <?php foreach ($header as $m => $row): ?>
-            <th class="text-center"><a href="<?php echo Url::to(['dashboard/detail', 'month' => $m]); ?>"
+            <th class="text-center"><a href="<?php echo Url::to(['dashboard/detail', 'month' => $m, 'year' => $year]); ?>"
                                        target="_blank"><?php echo $row; ?></a></th>
         <?php endforeach; ?>
     </tr>
@@ -66,7 +66,7 @@ $lastYear = $year - 1;
             <?php foreach ($row['month'] as $m => $amount): ?>
                 <td class="text-center <?php echo intval($amount) > $row['yearAmount'] ? 'success' : 'danger'; ?>">
                     <a
-                        href="<?php echo Url::to(['dashboard/detail', 'month' => $m , 'category' => $row['categId']]); ?>"
+                        href="<?php echo Url::to(['dashboard/detail', 'month' => $m , 'year' => $year, 'category' => $row['categId']]); ?>"
                         target="_blank"><?php echo $amount;?></a>
                 </td>
             <?php endforeach; ?>

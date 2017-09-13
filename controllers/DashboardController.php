@@ -35,7 +35,7 @@ class DashboardController extends MyController
         $lastYearAmount = 0;
         foreach ($listCateg as $categ) {
             if (false === empty($listStatByCategory['year']['previous'])) {
-                $lastYearAmount = floatval($listStatByCategory['year']['previous'][$categ['label']]) / 12;
+                $lastYearAmount = floatval($listStatByCategory['year']['previous'][$categ['label']] ?? 0) / 12;
             }
 
             $yearAmount = 0;

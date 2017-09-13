@@ -49,11 +49,10 @@ class Bank extends AbstractServiceTable implements BankInterface
         $nb = 0;
         if ('txt' !== $ext) {
             $data = $this->getExcelService()->toArray($filename);
-            array_shift($data);
 
             $listCol = implode(';', $data[0]);
-            $validCol = 'Date operation;Categorie operation;Libelle operation;Montant operation;Pointage operation';
-            if ($listCol !== $listCol) {
+            $validCol = 'Date operation;Date valeur;Libelle;Debit;Credit';
+            if ($listCol !== $validCol) {
                 throw $this->getThrowException(
                     'bank.import.xls.bad.format',
                     ['{expected}' => $validCol, 'actual' => $listCol]
@@ -69,10 +68,15 @@ class Bank extends AbstractServiceTable implements BankInterface
                     if (null === $dateOp) {
                         throw $this->getThrowException('bank.import.date.badformat', array('{date}' => $dateOp));
                     }
+                    if (empty($item[self::IMPORT_COL_CREDIT])) {
+                        $amount = str_replace(',', '.', $item[self::IMPORT_COL_DEBIT]) * -1;
+                    } else {
+                        $amount = str_replace(',', '.', $item[self::IMPORT_COL_CREDIT]);
+                    }
                     $insertData = [
                         'date_operation' => $dateOp,
                         'label'          => $item[self::IMPORT_COL_LABEL],
-                        'amount'         => $item[self::IMPORT_COL_AMOUNT],
+                        'amount'         => $amount,
                         'date_created'   => $this->getDateService()->getCurrentMysqlDatetime(),
                         'status'         => self::STATUS_NEW,
                     ];

@@ -32,7 +32,7 @@ class SiteController extends MyController
         $this->checkIsPostRequest();
         $files = $this->getFilesData();
 
-        $uploadDir = yii::$app->basePath . '/uploads/';
+        $uploadDir = Yii::$app->basePath . '/uploads/';
         $uploadFile = $uploadDir . basename($files['file_data']['name']);
 
         if (true !== move_uploaded_file($files['file_data']['tmp_name'], $uploadFile)) {
