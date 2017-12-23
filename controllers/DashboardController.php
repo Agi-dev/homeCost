@@ -45,7 +45,7 @@ class DashboardController extends MyController
             $total['previous'] += $lastYearAmount;
             $total['year'] += $yearAmount;
             $row = [
-                'categId'    => $categ['id'],
+                'categId'    => $categ['code'],
                 'label'      => $categ['label'],
                 'previous'   => number_format($lastYearAmount, 2),
                 'current'    => number_format($yearAmount, 2),

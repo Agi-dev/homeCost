@@ -1,6 +1,6 @@
 <?php
 $tablename = 'rules';
-$listAttr = array('id', 'rule', 'category_id');
+$listAttr = array('id', 'rule', 'category_code');
 foreach ($listAttr as &$attr) {
     $attr = $tablename . '.' . $attr;
 }

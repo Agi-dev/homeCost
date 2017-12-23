@@ -65,6 +65,14 @@ class SiteController extends MyController
         return $this->renderAction(compact('data', 'dateService', 'listCateg'));
     }
 
+    public function actionGuess()
+    {
+        /** @var BankInterface $bankService */
+        $bankService = $this->getService('bank');
+        $bankService->guess();
+        $this->redirect('process');
+    }
+
     public function actionIgnore()
     {
         $this->checkIsAjaxRequest();

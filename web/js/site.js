@@ -1,7 +1,7 @@
 /**
  * Created by Francois on 11/11/2015.
  */
-$(document).on('ready', function () {
+$(function() {
     toastr.options = {
         "closeButton": true,
         "debug": false,

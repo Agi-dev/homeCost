@@ -38,10 +38,11 @@ CREATE TABLE IF NOT EXISTS `bank` (
 DROP TABLE IF EXISTS `category` ;
 
 CREATE TABLE IF NOT EXISTS `category` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(11) NOT NULL,
   `label` VARCHAR(45) NULL DEFAULT NULL,
   `tag` VARCHAR(10) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `show` INT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`code`),
   INDEX `idx_tag` (`tag` ASC))
   ENGINE = InnoDB;
 
@@ -56,10 +57,10 @@ CREATE TABLE IF NOT EXISTS `cost` (
   `amount` DECIMAL(25,2) NULL,
   `date` DATE NOT NULL,
   `guessed` INT(1) NOT NULL DEFAULT 0,
-  `category_id` INT(11) NOT NULL,
+  `category_code` VARCHAR(11) NOT NULL,
   `bank_id` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `FK_cost_id_category` (`category_id` ASC),
+  INDEX `FK_cost_code_category` (`category_code` ASC),
   INDEX `FK_cost_id_bank` (`bank_id` ASC),
   INDEX `idx_date` (`date` ASC))
   ENGINE = InnoDB;
@@ -71,10 +72,10 @@ CREATE TABLE IF NOT EXISTS `cost` (
 DROP TABLE IF EXISTS `subcategory` ;
 
 CREATE TABLE IF NOT EXISTS `subcategory` (
-  `id` INT(11) NOT NULL,
-  `category_id` INT(11) NOT NULL,
-  PRIMARY KEY (`id`, `category_id`),
-  INDEX `FK_subcategory_id_category` (`category_id` ASC))
+  `code` VARCHAR(11) NOT NULL,
+  `category_code` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`code`, `category_code`),
+  INDEX `FK_subcategory_code_category` (`category_code` ASC))
   ENGINE = InnoDB;
 
 
@@ -86,9 +87,9 @@ DROP TABLE IF EXISTS `rules` ;
 CREATE TABLE IF NOT EXISTS `rules` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `rule` VARCHAR(255) NOT NULL,
-  `category_id` INT(11) NOT NULL,
+  `category_code` VARCHAR(11) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_rules_category1_idx` (`category_id` ASC))
+  INDEX `fk_rules_category1_idx` (`category_code` ASC))
   ENGINE = InnoDB;
 
 

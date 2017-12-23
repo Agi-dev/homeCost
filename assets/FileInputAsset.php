@@ -15,7 +15,7 @@ use yii\web\AssetBundle;
  */
 class FileInputAsset extends AssetBundle
 {
-    public $sourcePath = '@app/vendor/kartik-v/bootstrap-fileinput';
+    public $sourcePath = '@app/web/vendor/bootstrap-fileinput-master';
     public $css = [
         'css/fileinput.min.css',
     ];

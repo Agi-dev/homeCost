@@ -42,7 +42,7 @@ class Category extends AbstractServiceTable implements CategoryInterface
 
         foreach ($this->_listRules as $rule) {
             if (1 === preg_match('#' . $rule['rule'] . '#i', $label)) {
-                return $rule['category_id'];
+                return $rule['category_code'];
             }
         }
         return null;
@@ -77,7 +77,7 @@ class Category extends AbstractServiceTable implements CategoryInterface
      */
     public function listFields()
     {
-        return array('id');
+        return array('code');
     }
 
     /**
@@ -88,7 +88,7 @@ class Category extends AbstractServiceTable implements CategoryInterface
      */
     public function listIdFields()
     {
-        return array('id');
+        return array('code');
     }
 
 }

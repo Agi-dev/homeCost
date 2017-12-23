@@ -21,7 +21,7 @@ $config = require(__DIR__ . '/config/console.php');
 // Init Serval
 Container::singleton()->loadFile(__DIR__ . '/config/container/services.php');
 ServalFactory::singleton()->setContainer(Container::singleton());
-include_once(__DIR__ . '/vendor/NumericWorkshop/Serval/src/Serval/functions.php');
+include_once(__DIR__ . '/vendor/Serval/src/Serval/functions.php');
 
 $application = new yii\console\Application($config);
 $exitCode = $application->run();

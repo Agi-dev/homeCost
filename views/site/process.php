@@ -19,7 +19,11 @@ $nb = 0;
 ?>
 
     <div class="page-header">
-        <h1>Traitements des nouvelles opérations <span class="badge"><?php echo count($data);?></span></h1>
+        <h1>
+            Traitements des nouvelles opérations
+            <span class="badge"><?php echo count($data);?></span>
+            <a href="/site/guess" class="btn btn-primary inline">Guess</a>
+        </h1>
     </div>
 <?php if ($data): ?>
     <table class="table table-striped table-condensed">

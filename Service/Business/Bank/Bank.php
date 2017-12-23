@@ -81,7 +81,9 @@ class Bank extends AbstractServiceTable implements BankInterface
                         'status'         => self::STATUS_NEW,
                     ];
 
-                    if (null !== $this->_addOperation($insertData)) $nb++;
+                    if (null !== $this->_addOperation($insertData)) {
+                        $nb++;
+                    }
                 }
                 $this->commitTransaction();
             } catch (\Exception $e) {
@@ -110,7 +112,7 @@ class Bank extends AbstractServiceTable implements BankInterface
                     break;
                 }
                 $month = $listM[$data[$i]];
-                $month = ($month < 10 ? "0".$month:$month);
+                $month = ($month < 10 ? "0" . $month : $month);
                 $i++;
                 if ($i >= $stop) {
                     break;
@@ -131,7 +133,9 @@ class Bank extends AbstractServiceTable implements BankInterface
                     'status'         => self::STATUS_NEW,
                 ];
 
-               if (null !== $this->_addOperation($insertData)) $nb++;
+                if (null !== $this->_addOperation($insertData)) {
+                    $nb++;
+                }
             }
             $this->commitTransaction();
         } catch (\RuntimeException $e) {
@@ -153,27 +157,33 @@ class Bank extends AbstractServiceTable implements BankInterface
         if (true === $this->isOperationAlreadyExits($data['date_operation'], $data['label'], $data['amount'])) {
             return null;
         }
+        $data['id'] = $this->insert($data);
+        $this->_guess($data);
 
-        $id = $this->insert($data);
+        return $data['id'];
+    }
 
+    /**
+     * @param $data
+     */
+    protected function _guess($data)
+    {
         // guess category
-        $categId = $this->getCategoryService()->guess($data['label']);
-        if (null !== $categId) {
+        $categCode = $this->getCategoryService()->guess($data['label']);
+        if (null !== $categCode) {
             $insertData = [
-                'amount'      => $data['amount'],
-                'date'        => $data['date_operation'],
-                'guessed'     => 1,
-                'category_id' => $categId,
-                'bank_id'     => $id,
+                'amount'        => $data['amount'],
+                'date'          => $data['date_operation'],
+                'guessed'       => 1,
+                'category_code' => $categCode,
+                'bank_id'       => $data['id'],
             ];
             $this->getCostService()->insert($insertData);
             $this->update(
                 ['status' => BankInterface::STATUS_SORTED],
-                ['id' => $id]
+                ['id' => $data['id']]
             );
         }
-
-        return $id;
     }
 
     /**
@@ -259,7 +269,14 @@ class Bank extends AbstractServiceTable implements BankInterface
     {
         $operation = $this->checkId($id);
         $this->update(['status' => BankInterface::STATUS_SORTED], ['id' => $id]);
-        $this->getCostService()->insert(['amount' => $operation['amount'], 'bank_id' => $id, 'category_id' => $tagId, 'date' => $operation['date_operation']]);
+        $this->getCostService()->insert(
+            [
+                'amount'      => $operation['amount'],
+                'bank_id'     => $id,
+                'category_id' => $tagId,
+                'date'        => $operation['date_operation']
+            ]
+        );
 
         return $this;
     }
@@ -278,6 +295,17 @@ class Bank extends AbstractServiceTable implements BankInterface
         $this->getCostService()->delete(['bank_id' => $id]);
 
         return $this;
+    }
+
+    /**
+     * guess category
+     */
+    public function guess()
+    {
+        $listNew = $this->listNew();
+        foreach ($listNew as $bank) {
+            $this->_guess($bank);
+        }
     }
 
     /**

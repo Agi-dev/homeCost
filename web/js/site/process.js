@@ -1,7 +1,7 @@
 /**
  * Created by Francois on 08/11/2015.
  */
-$(document).on('ready', function() {
+$(function() {
     $('.btn-categ').on('click', function () {
         var id = $(this).closest('tr').data('id');
         var $label = $(this);

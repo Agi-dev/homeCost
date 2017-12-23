@@ -1,5 +1,6 @@
 <?php
-$services = include __DIR__ . '/../../vendor/NumericWorkshop/Serval/src/Serval/resources/container/services.php';
+//$services = include __DIR__ . '/../../vendor/NumericWorkshop/Serval/src/Serval/resources/container/services.php';
+$services = include __DIR__ . '/../../vendor/Serval/src/Serval/resources/container/services.php';
 
 /**
  * PARAMETERS
@@ -24,7 +25,7 @@ $services['parameters']['database'] = array_merge(
     [
         'dsn'      => 'mysql:host=localhost;dbname=homecost',
         'username' => 'root',
-        'password' => '',
+        'password' => 'root',
     ]
 );
 $services['parameters']['database']['queriesPath'] = array_merge(

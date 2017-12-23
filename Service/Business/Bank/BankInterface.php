@@ -101,4 +101,9 @@ interface BankInterface extends ServiceTableInterface
      * @return $this
      */
     public function untagById($id);
+
+    /**
+     * guess category
+     */
+    public function guess();
 }

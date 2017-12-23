@@ -1,7 +1,7 @@
 /**
  * Created by Francois on 08/11/2015.
  */
-$(document).on('ready', function () {
+$(function() {
     $("#excelFile").fileinput({
         language: 'fr',
         browseLabel: " Importer un relevé bancaire",

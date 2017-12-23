@@ -12,11 +12,9 @@ $this->title = 'HomeCost';
         <p class="lead">Télécharger un relevé de compte au format Excel.</p>
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <input id="excelFile" type="file" class="file-loading">
+                <input id="excelFile" type="file">
             </div>
         </div>
-        <small>Fichier export relevé BNP ou {annee}_bankin.txt</small>
+        <small>Fichier export relevé Crédit Mutuel</small>
     </div>
-
-
 </div>

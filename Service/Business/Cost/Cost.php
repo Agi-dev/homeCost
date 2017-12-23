@@ -87,7 +87,7 @@ class Cost extends AbstractServiceTable implements CostInterface
             if (true === isset($filters['category'])) {
                 return $this->fetchAll(
                     'listByMonthAndCategoryId',
-                    [':month' => $filters['month'], 'category_id' => $filters['category'], ':year' => $filters['year']]
+                    [':month' => $filters['month'], 'category_code' => $filters['category'], ':year' => $filters['year']]
                 );
             }
             return $this->fetchAll('listByMonth', [':month' => $filters['month'], ':year' => $filters['year']]);
@@ -97,7 +97,7 @@ class Cost extends AbstractServiceTable implements CostInterface
         if (true === isset($filters['category'])) {
             return $this->fetchAll(
                 'listByYearAndCategoryId',
-                [':year' => $filters['year'], 'category_id' => $filters['category']]
+                [':year' => $filters['year'], 'category_code' => $filters['category']]
             );
         }
         return $this->fetchAll('listByYear', [':year' => $filters['year']]);
@@ -113,7 +113,7 @@ class Cost extends AbstractServiceTable implements CostInterface
      */
     public function listFields()
     {
-        return array('id', 'amount', 'date', 'guessed', 'category_id', 'bank_id');
+        return array('id', 'amount', 'date', 'guessed', 'category_code', 'bank_id');
     }
 
     /**
