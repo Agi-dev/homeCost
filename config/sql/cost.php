@@ -14,7 +14,7 @@ return array(
                           c1.label, sum(amount) AS total
                         FROM category c1
                         LEFT JOIN subcategory s ON s.id = c1.id
-                        INNER JOIN cost c ON c.category_id = IFNULL(s.category_code, c1.code )
+                        INNER JOIN cost c ON c.category_code = IFNULL(s.category_code, c1.code )
                         GROUP BY c.category_code
                         ORDER BY c1.label',
 //    'listCategoryStatByYear' => 'SELECT

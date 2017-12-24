@@ -19,7 +19,7 @@ $(function() {
         $("#excelFile").fileinput("upload");
     }).on('filebatchuploadsuccess', function (event, data) {
         if (data.response.success) {
-            toastr.success(data.response.message);
+            window.location = 'site/process'
         } else {
             toastr.error(data.response.message);
         }

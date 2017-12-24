@@ -7,14 +7,6 @@
 use Serval\Technical\Date\DateInterface;
 use yii\helpers\Url;
 
-$htmlCateg = [];
-$nb=1;
-$listCategById = [];
-foreach ($listCateg as $item) {
-    $htmlCateg[] = $this->render('partials/categ_label', $item) . (($nb%5) === 0 ? '<div class="clearfix"></div>':'');
-    $nb++;
-}
-$htmlCateg = implode('&nbsp;', $htmlCateg);
 $nb = 0;
 ?>
 
@@ -22,7 +14,6 @@ $nb = 0;
         <h1>
             Traitements des nouvelles opérations
             <span class="badge"><?php echo count($data);?></span>
-            <a href="/site/guess" class="btn btn-primary inline">Guess</a>
         </h1>
     </div>
 <?php if ($data): ?>
@@ -42,11 +33,36 @@ $nb = 0;
 
         <tbody> <!-- Corps du tableau -->
         <?php foreach ($data as $item): ?>
+            <?php
+            $htmlCateg =[];
+            $nbb = 1;
+            foreach ($listCateg as $categ) {
+                $categ['btnClass'] = 'btn-id-' . $item['id'];
+                if ($categ['code'] === $item['categ']) {
+                    $categ['btnClass'] .= ' btn-success';
+                    $nb++;
+                } else {
+                    $categ['btnClass'] .= ' btn-default';
+                }
+                $htmlCateg[] = $this->render('partials/categ_label', $categ) . (($nbb%5) === 0 ? '<div class="clearfix"></div>':'');
+                $nbb++;
+            }
+            switch ($listCateg[$item['categ'] ]['mainCateg']) {
+                case 'CHARGE' :
+                    $labelClass = 'label-danger';
+                    break;
+                case 'APPORT' :
+                    $labelClass = 'label-success';
+                    break;
+                default:
+                    $labelClass = ($item['categ'] === 'AUTRE'? 'label-warning':'label-default');
+            }
+            ?>
             <tr data-id="<?php echo $item['id'];?>">
                 <td class="text-center"><?php echo $dateService->dateMysqlToI18nString($item['date_operation']); ?></td>
                 <td class="text-center <?php echo intval( $item['amount']) > 0 ? 'success':'warning';?>"><strong><?php echo $item['amount']; ?> &euro;</strong></td>
-                <td><?php echo $item['label']; ?></td>
-                <td><?php echo str_replace('btn-id', 'btn-id-'.$item['id'],$htmlCateg);?></td>
+                <td><?php echo $item['label']; ?>&nbsp;<span class="label <?php echo $labelClass;?>"><?php echo $item['categ'];?></span></td>
+                <td><?php echo implode('&nbsp;', $htmlCateg);?></td>
                 <td class="text-center">
                     <div class="checkbox">
                         <label>
@@ -58,7 +74,9 @@ $nb = 0;
         <?php endforeach; ?>
         </tbody>
     </table>
-    <h3><?php echo $nb .' opérations affectées automatiquement';?></h3>
+<p>    <a href="/site/guess" class="btn-lg btn-primary inline">Valider</a>
+</p>
+<div class="clearfix"></div>
 <?php else: ?>
     <h3>Aucune nouvelle opération à traiter</h3>
 <?php endif ?>

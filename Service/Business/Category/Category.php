@@ -45,7 +45,7 @@ class Category extends AbstractServiceTable implements CategoryInterface
                 return $rule['category_code'];
             }
         }
-        return null;
+        return 'AUTRE';
     }
 
     /**
@@ -56,7 +56,12 @@ class Category extends AbstractServiceTable implements CategoryInterface
     public function listOrderBy($order = 'label')
     {
         if ('tag' === $order) {
-            return $this->fetchAll('listAllOrderByTag');
+            $result = $this->fetchAll('listAllOrderByTag');
+            $data = [];
+            foreach ($result as $i => $row) {
+                $data[$row['code']] = $row;
+            }
+            return $data;
         }
         return $this->listAll();
     }

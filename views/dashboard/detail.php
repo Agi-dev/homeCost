@@ -8,6 +8,7 @@
 use Serval\Technical\Date\DateInterface;
 
 $listM = ['F', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+$title = '';
 if (true === isset($params['month'])) {
     $title = $listM[$params['month']];
 }

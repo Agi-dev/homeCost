@@ -70,7 +70,7 @@ class SiteController extends MyController
         /** @var BankInterface $bankService */
         $bankService = $this->getService('bank');
         $bankService->guess();
-        $this->redirect('process');
+        $this->redirect('/');
     }
 
     public function actionIgnore()

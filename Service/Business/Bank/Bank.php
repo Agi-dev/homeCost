@@ -47,87 +47,41 @@ class Bank extends AbstractServiceTable implements BankInterface
 
         // import excel
         $nb = 0;
-        if ('txt' !== $ext) {
-            $data = $this->getExcelService()->toArray($filename);
+        $data = $this->getExcelService()->toArray($filename);
 
-            $listCol = implode(';', $data[0]);
-            $validCol = 'Date operation;Date valeur;Libelle;Debit;Credit';
-            if ($listCol !== $validCol) {
-                throw $this->getThrowException(
-                    'bank.import.xls.bad.format',
-                    ['{expected}' => $validCol, 'actual' => $listCol]
-                );
-            }
+        $listCol = implode(';', $data[0]);
 
-            array_shift($data);
-            $this->beginTransaction();
-            try {
-                foreach ($data as $item) {
-                    $item[self::IMPORT_COL_DATE] = str_replace('-', '/', $item[self::IMPORT_COL_DATE]);
-                    $dateOp = $this->getDateService()->dateI18nToMysql($item[self::IMPORT_COL_DATE]);
-                    if (null === $dateOp) {
-                        throw $this->getThrowException('bank.import.date.badformat', array('{date}' => $dateOp));
-                    }
-                    if (empty($item[self::IMPORT_COL_CREDIT])) {
-                        $amount = str_replace(',', '.', $item[self::IMPORT_COL_DEBIT]) * -1;
-                    } else {
-                        $amount = str_replace(',', '.', $item[self::IMPORT_COL_CREDIT]);
-                    }
-                    $insertData = [
-                        'date_operation' => $dateOp,
-                        'label'          => $item[self::IMPORT_COL_LABEL],
-                        'amount'         => $amount,
-                        'date_created'   => $this->getDateService()->getCurrentMysqlDatetime(),
-                        'status'         => self::STATUS_NEW,
-                    ];
-
-                    if (null !== $this->_addOperation($insertData)) {
-                        $nb++;
-                    }
-                }
-                $this->commitTransaction();
-            } catch (\Exception $e) {
-                $this->rollbackTransaction();
-                throw $this->getThrowException('bank.import.failed', ['{error}' => $e->getMessage()]);
-            }
-
-            return $nb;
+        if ($listCol === 'Date operation;Libelle;Debit;Credit') {
+            $colDate = 0;
+            $colLabel = 1;
+            $colDebit = 2;
+            $colCredit = 3;
+        } elseif ($listCol === 'Date operation;Date valeur;Libelle;Debit;Credit') {
+            $colDate = 0;
+            $colLabel = 2;
+            $colDebit = 3;
+            $colCredit = 4;
+        } else {
+            throw $this->getThrowException('bank.import.bad.format', ['actual' => $listCol]);
         }
 
-        // import bankin
-        $data = $this->getFilesystemService()->readFile($filename);
-        list($year, $dummy) = explode('_', basename($filename));
-        $data = str_replace("\r\n", "\n", $data);
-        $data = explode("\n", $data);
-        $listM = ['F', 'JAN.', 'FEV.', 'MAR.', 'AVR.', 'MAI', 'JUIN', 'JUIL.', 'AOUT', 'SEPT.', 'OCT.', 'NOV.', 'DEC.'];
-        $listM = array_flip($listM);
-        $stop = count($data);
+        array_shift($data);
         $this->beginTransaction();
         try {
-
-            for ($i = 0; $i < $stop; $i++) {
-                $day = $data[$i];
-                $i++;
-                if ($i >= $stop) {
-                    break;
+            foreach ($data as $item) {
+                $item[$colDate] = str_replace('-', '/', $item[$colDate]);
+                $dateOp = $this->getDateService()->dateI18nToMysql($item[$colDate]);
+                if (null === $dateOp) {
+                    throw $this->getThrowException('bank.import.date.badformat', array('{date}' => $dateOp));
                 }
-                $month = $listM[$data[$i]];
-                $month = ($month < 10 ? "0" . $month : $month);
-                $i++;
-                if ($i >= $stop) {
-                    break;
+                if (empty($item[$colCredit])) {
+                    $amount = str_replace(',', '.', $item[$colDebit]) * -1;
+                } else {
+                    $amount = str_replace(',', '.', $item[$colCredit]);
                 }
-                $label = $data[$i];
-                $i += 2;
-                if ($i >= $stop) {
-                    break;
-                }
-                $amount = floatval(str_replace(' ', '', str_replace(' €', '', $data[$i])));
-                $i++;
-
                 $insertData = [
-                    'date_operation' => $year . '-' . $month . '-' . $day,
-                    'label'          => $label,
+                    'date_operation' => $dateOp,
+                    'label'          => $item[$colLabel],
                     'amount'         => $amount,
                     'date_created'   => $this->getDateService()->getCurrentMysqlDatetime(),
                     'status'         => self::STATUS_NEW,
@@ -138,12 +92,13 @@ class Bank extends AbstractServiceTable implements BankInterface
                 }
             }
             $this->commitTransaction();
-        } catch (\RuntimeException $e) {
+        } catch (\Exception $e) {
             $this->rollbackTransaction();
             throw $this->getThrowException('bank.import.failed', ['{error}' => $e->getMessage()]);
         }
 
         return $nb;
+
 
     }
 
@@ -158,7 +113,7 @@ class Bank extends AbstractServiceTable implements BankInterface
             return null;
         }
         $data['id'] = $this->insert($data);
-        $this->_guess($data);
+        //$this->_guess($data);
 
         return $data['id'];
     }
@@ -166,11 +121,11 @@ class Bank extends AbstractServiceTable implements BankInterface
     /**
      * @param $data
      */
-    protected function _guess($data)
+    protected function _guess($data, $saveIt = true)
     {
         // guess category
         $categCode = $this->getCategoryService()->guess($data['label']);
-        if (null !== $categCode) {
+        if ($saveIt && null !== $categCode) {
             $insertData = [
                 'amount'        => $data['amount'],
                 'date'          => $data['date_operation'],
@@ -184,6 +139,8 @@ class Bank extends AbstractServiceTable implements BankInterface
                 ['id' => $data['id']]
             );
         }
+
+        return $categCode;
     }
 
     /**
@@ -212,7 +169,27 @@ class Bank extends AbstractServiceTable implements BankInterface
      */
     public function listNew()
     {
-        return $this->fetchAll('listNew');
+        $data = $this->fetchAll('listNew');
+        foreach ($data as $i => $row) {
+            $row['categ'] = $this->_guess($row, false);
+            $data[$i] = $row;
+        }
+        uasort(
+            $data,
+            function ($a, $b) {
+                if ($a['categ'] == $b['categ']) {
+                    return 0;
+                }
+                if ($a['categ'] == 'AUTRE') {
+                    return -1;
+                }
+                if ($b['categ'] == 'AUTRE') {
+                    return 1;
+                }
+                return ($a['categ'] < $b['categ']) ? -1 : 1;
+            }
+        );
+        return $data;
     }
 
     /**
@@ -261,20 +238,20 @@ class Bank extends AbstractServiceTable implements BankInterface
      * tag operation
      *
      * @param $id
-     * @param $tagId
+     * @param $tagCode
      *
      * @return $this
      */
-    public function tagById($id, $tagId)
+    public function tagById($id, $tagCode)
     {
         $operation = $this->checkId($id);
         $this->update(['status' => BankInterface::STATUS_SORTED], ['id' => $id]);
         $this->getCostService()->insert(
             [
-                'amount'      => $operation['amount'],
-                'bank_id'     => $id,
-                'category_id' => $tagId,
-                'date'        => $operation['date_operation']
+                'amount'        => $operation['amount'],
+                'bank_id'       => $id,
+                'category_code' => $tagCode,
+                'date'          => $operation['date_operation']
             ]
         );
 

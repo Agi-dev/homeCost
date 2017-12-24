@@ -26,10 +26,15 @@ interface BankInterface extends ServiceTableInterface
     /**
      * IMPORT COLUMN
      */
-    const IMPORT_COL_DATE   = 0;
-    const IMPORT_COL_LABEL  = 2;
-    const IMPORT_COL_DEBIT = 3;
-    const IMPORT_COL_CREDIT = 4;
+    const XLS_COL_DATE   = 0;
+    const XLS_COL_LABEL  = 2;
+    const XLS_COL_DEBIT  = 3;
+    const XLS_COL_CREDIT = 4;
+
+    const CSV_COL_DATE   = 0;
+    const CSV_COL_LABEL  = 2;
+    const CSV_COL_DEBIT  = 3;
+    const CSV_COL_CREDIT = 4;
 
     /**
      * import bank statement
