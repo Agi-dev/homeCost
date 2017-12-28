@@ -39,14 +39,14 @@ class Bank extends AbstractServiceTable implements BankInterface
      *
      * @param $filename
      *
-     * @return int
+     * @return array nb duplicate, added ['duplicate' => <nb>, 'added' => <nb>']
      */
     public function import($filename)
     {
         $ext = $this->getFilesystemService()->getFileExtension($filename);
 
         // import excel
-        $nb = 0;
+        $nb = ['duplicate' => 0, 'added' => 0];
         $data = $this->getExcelService()->toArray($filename);
 
         $listCol = implode(';', $data[0]);
@@ -87,8 +87,12 @@ class Bank extends AbstractServiceTable implements BankInterface
                     'status'         => self::STATUS_NEW,
                 ];
 
-                if (null !== $this->_addOperation($insertData)) {
-                    $nb++;
+                if (true === $this->isOperationAlreadyExits($insertData['date_operation'], $insertData['label'], $insertData['amount'])) {
+                    $nb['duplicate']++;
+                } else{
+                    $this->insert($insertData);
+                    //$this->_guess($data);
+                    $nb['added']++;
                 }
             }
             $this->commitTransaction();
@@ -154,6 +158,12 @@ class Bank extends AbstractServiceTable implements BankInterface
      */
     public function isOperationAlreadyExits($date, $label, $amount)
     {
+        if (preg_match('/^CARTE ([0-9]{2}\/[0-9]{2})(.*)$/', $label, $matches)) {
+            $date = $matches[1];
+            $label = $matches[2];
+        } else {
+            $date = substr($date, 0, 5);
+        }
         $result = $this->fetchAll(
             'getByDateAndLabelAndAmount',
             [':date' => $date, ':label' => $label, ':amount' => $amount]

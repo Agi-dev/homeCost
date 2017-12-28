@@ -17,4 +17,4 @@ INSERT INTO `rules` (`rule`, `category_code`) VALUES('PRLV URSSAF RHONE ALPES - 
 INSERT INTO `rules` (`rule`, `category_code`) VALUES('Spotify|ITUNES.COM', 'ABT');
 INSERT INTO `rules` (`rule`, `category_code`) VALUES('LDEF BORDEAUX|LDEF-BORDEAUX', 'EAU');
 INSERT INTO `rules` (`rule`, `category_code`) VALUES('AMAZON', 'AMAZON');
-INSERT INTO `rules` (`rule`, `category_code`) VALUES('LEROY', 'BRICO');
+INSERT INTO `rules` (`rule`, `category_code`) VALUES('LEROY|CASTORAMA', 'BRICO');

@@ -6,16 +6,17 @@ use Service\Business\Category\CategoryInterface;
 use Yii;
 use app\components\MyController;
 use Service\Business\Bank\BankInterface;
+
 class SiteController extends MyController
 {
     public function actions()
     {
         return [
-            'error' => [
+            'error'   => [
                 'class' => 'yii\web\ErrorAction',
             ],
             'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
+                'class'           => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
@@ -43,9 +44,13 @@ class SiteController extends MyController
 
         /** @var BankInterface $bankService */
         $bankService = $this->getService('bank');
-        try{
+        try {
             $nb = $bankService->import($uploadFile);
-            $result = array('success' => true, 'message' => $nb . ' nouvelles opérations insérées en base.');
+            $message = sprintf('%s nouvelles opérations', $nb['added']);
+            if ($nb['duplicate']) {
+                $message .= sprintf(' (%s doublons)', $nb['duplicate']);
+            }
+            $result = array('success' => true, 'message' => $message);
         } catch (\Exception $e) {
             $result = array('success' => false, 'message' => $e->getMessage());
         }

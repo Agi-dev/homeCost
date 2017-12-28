@@ -1,7 +1,7 @@
 <?php
 /**
  * @var array $header
- * @var array $data
+ * @var array $dataCateg
  * @var array $total
  * @var int   $year
  */
@@ -27,7 +27,8 @@ $lastYear = $year - 1;
         </div>
     </div>
 </div>
-<div><br></div>
+<?php foreach($data as $mainCateg => $dataCateg) :?>
+<div><h3><?php echo $mainCateg;?></h3></div>
 <table class="table table-striped table-condensed table-bordered">
     <thead> <!-- En-tête du tableau -->
     <tr>
@@ -43,18 +44,19 @@ $lastYear = $year - 1;
 
     <tfoot> <!-- Pied de tableau -->
     <tr>
-        <th class="text-right"><strong>Total</strong></th>
-        <th class="text-center"><?php echo number_format($total['previous'], 2); ?></th>
-        <th class="text-center"><?php echo number_format($total['year'], 2); ?></th>
-        <?php foreach ($total['month'] as $amount): ?>
-            <th class="text-center <?php echo intval($amount) > $total['year'] ? 'success' : 'danger'; ?>">
+        <th class="text-right"><strong>Total <?php echo $mainCateg;?></strong></th>
+        <th class="text-center"><?php echo number_format($totalCateg[$mainCateg]['previous'], 2); ?></th>
+        <th class="text-center"><?php echo number_format($totalCateg[$mainCateg]['year'], 2); ?></th>
+        <?php foreach ($header as $m => $row): ?>
+            <?php $amount = $totalCateg[$mainCateg]['month'][intval($m)]; ?>
+            <th class="text-center <?php echo intval($amount) > $totalCateg[$mainCateg]['year'] ? 'success' : 'danger'; ?>">
                 <strong><?php echo $amount; ?></strong></th>
         <?php endforeach; ?>
     </tr>
     </tfoot>
 
     <tbody> <!-- Corps du tableau -->
-    <?php foreach ($data as $row): ?>
+    <?php foreach ($dataCateg as $row): ?>
         <tr>
             <td><?php echo $row['label']; ?></td>
             <td class="text-center"><a
@@ -64,7 +66,7 @@ $lastYear = $year - 1;
                     href="<?php echo Url::to(['dashboard/detail', 'year' => $year, 'category' => $row['categId']]); ?>"
                     target="_blank"><?php echo $row['current']; ?></a></td>
             <?php foreach ($row['month'] as $m => $amount): ?>
-                <td class="text-center <?php echo intval($amount) > $row['yearAmount'] ? 'success' : 'danger'; ?>">
+                <td class="text-center <?php echo intval($amount) >= $row['yearAmount'] ? 'success' : 'danger'; ?>">
                     <a
                         href="<?php echo Url::to(['dashboard/detail', 'month' => $m , 'year' => $year, 'category' => $row['categId']]); ?>"
                         target="_blank"><?php echo $amount;?></a>
@@ -75,3 +77,4 @@ $lastYear = $year - 1;
 
     </tbody>
 </table>
+<?php endforeach;?>
